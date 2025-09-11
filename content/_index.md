@@ -1,6 +1,6 @@
 ---
 title: "Internship Report"
-date: "2025-09-11T03:12:44Z"
+date: "2025-09-11T06:27:13Z"
 weight: 1
 chapter: false
 ---
@@ -13,11 +13,11 @@ chapter: false
 {{% /notice %}}
 
 ### Student Information:
-&emsp; **Full Name:** Nguyen Van A
+&emsp; **Full Name:** Ly Anh Khoa
 
-&emsp; **Phone Number:** 0989888999 
+&emsp; **Phone Number:** 0902381647 
 
-&emsp; **Email:** Anguyenvan@gmail.com
+&emsp; **Email:** khoalase182682@fpt.edu.vn
 
 &emsp; **University:** Ho Chi Minh City University of Technology and Education
 
@@ -42,6 +42,8 @@ chapter: false
 5.  [Workshop](5-Workshop/)
 6.  [Self-evaluation](6-Self-evaluation/)
 7.  [Sharing and Feedback](7-Feedback/)
+
+
 
 
 

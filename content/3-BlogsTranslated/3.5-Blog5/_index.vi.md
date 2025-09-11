@@ -1,6 +1,6 @@
 ---
 title: "Blog 5"
-date: "2025-09-11T03:12:44Z"
+date: "2025-09-11T06:27:13Z"
 weight: 1
 chapter: false
 pre: " <b> 3.6. </b> "
@@ -125,6 +125,8 @@ Outputs:
     Value: !GetAtt Catalog.Arn
     Export:
       Name: !Sub ${AWS::StackName}-CatalogArn
+
+
 
 
 

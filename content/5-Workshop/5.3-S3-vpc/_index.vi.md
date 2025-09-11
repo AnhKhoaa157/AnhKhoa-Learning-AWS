@@ -1,6 +1,6 @@
 ---
 title : "Truy cập S3 từ VPC"
-date: "2025-09-11T03:12:44Z"
+date: "2025-09-11T06:27:13Z"
 weight : 3
 chapter : false
 pre : " <b> 5.3. </b> "
@@ -16,5 +16,7 @@ Trong phần này, bạn sẽ tạo một Gateway endpoint để truy cập Amaz
 
 - [Tạo gateway endpoint](3.1-create-gwe/)
 - [Test gateway endpoint](3.2-test-gwe/)
+
+
 
 

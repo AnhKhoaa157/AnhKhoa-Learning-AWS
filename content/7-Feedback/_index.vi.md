@@ -1,6 +1,6 @@
 ---
 title: "Chia sẻ, đóng góp ý kiến"
-date: "2025-09-11T03:12:44Z"
+date: "2025-09-11T06:27:13Z"
 weight: 7
 chapter: false
 pre: " <b> 7. </b> "
@@ -42,5 +42,7 @@ Công ty có hỗ trợ phụ cấp thực tập và tạo điều kiện về t
 - Bạn có đề xuất gì để cải thiện trải nghiệm trong kỳ thực tập?  
 - Bạn có muốn tiếp tục chương trình này trong tương lai?
 - Góp ý khác (tự do chia sẻ):
+
+
 
 

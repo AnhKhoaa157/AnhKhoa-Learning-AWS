@@ -1,6 +1,6 @@
 ---
 title : "VPC Endpoint Policies"
-date: "2025-09-11T03:12:44Z"
+date: "2025-09-11T06:27:13Z"
 weight : 5
 chapter : false
 pre : " <b> 5.5. </b> "
@@ -95,6 +95,8 @@ This command will return an error because access to this bucket is not permitted
 #### Part 3 Summary:
 
 In this section, you created a VPC endpoint policy for Amazon S3, and used the AWS CLI to test the policy. AWS CLI actions targeted to your original S3 bucket failed because you applied a policy that only allowed access to the second bucket you created. AWS CLI actions targeted for your second bucket succeeded because the policy allowed them. These policies can be useful in situations where you need to control access to resources through VPC endpoints.
+
+
 
 
 
