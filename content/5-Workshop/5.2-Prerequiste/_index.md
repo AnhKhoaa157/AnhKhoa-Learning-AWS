@@ -1,6 +1,6 @@
 ---
 title : "Prerequiste"
-date :  "`r Sys.Date()`" 
+date: "2025-09-11T03:12:44Z"
 weight : 2 
 chapter : false
 pre : " <b> 5.2. </b> "
@@ -240,3 +240,5 @@ The **ClouddFormation** deployment requires about 15 minutes to complete.
 + **3 EC2s** have been created
 
 ![EC2](/images/5-Workshop/5.2-Prerequisite/ec2.png)
+
+

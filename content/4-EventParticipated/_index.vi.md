@@ -1,6 +1,6 @@
 ---
 title: "Các events đã tham gia"
-date: "`r Sys.Date()`"
+date: "2025-09-11T03:12:44Z"
 weight: 4
 chapter: false
 pre: " <b> 4. </b> "
@@ -43,4 +43,7 @@ Trong quá trình thực tập, em đã tham gia 2 events, với mỗi event là
 &emsp;**Địa điểm:** Tầng 26, tòa nhà Bitexco, số 02 đường Hải Triều, phường Sài Gòn, thành phố Hồ Chí Minh
 
 &emsp;**Vai trò trong sự kiện:** Người tham dự 
+
+
+
 

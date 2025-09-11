@@ -1,6 +1,6 @@
 ---
 title : "Chuẩn bị tài nguyên"
-date : "`r Sys.Date()`"
+date: "2025-09-11T03:12:44Z"
 weight : 1
 chapter : false
 pre : " <b> 5.4.1 </b> "
@@ -52,6 +52,9 @@ Workshop này sử dụng StrongSwan VPN chạy trên EC2 instance để mô ph�
 ![add route](/images/5-Workshop/5.4-S3-onprem/add-route.png)
 
 6. Click Save changes
+
+
+
 
 
 
