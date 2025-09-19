@@ -1,6 +1,6 @@
 ---
 title: "Proposal"
-date: "2025-09-11T06:27:13Z"
+date: "2025-09-19T04:22:07Z"
 weight: 2
 chapter: false
 pre: " <b> 2. </b> "
@@ -113,6 +113,10 @@ Scalable to 10-15 stations.
 #### Long-term Value
 1-year data foundation for AI research.  
 Reusable for future projects.
+
+
+
+
 
 
 

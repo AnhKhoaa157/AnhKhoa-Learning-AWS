@@ -1,6 +1,6 @@
 ---
 title : "Các bước chuẩn bị"
-date: "2025-09-11T06:27:13Z"
+date: "2025-09-19T04:22:07Z"
 weight : 2
 chapter : false
 pre : " <b> 5.2. </b> "
@@ -240,6 +240,10 @@ Quá trình triển khai CloudFormation cần khoảng 15 phút để hoàn thà
 + 3 EC2s đã được tạo
 
 ![EC2](/images/5-Workshop/5.2-Prerequisite/ec2.png)
+
+
+
+
 
 
 

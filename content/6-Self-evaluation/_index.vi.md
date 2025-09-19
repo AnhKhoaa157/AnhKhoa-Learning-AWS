@@ -1,6 +1,6 @@
 ---
 title: "Tự đánh giá"
-date: "2025-09-11T06:27:13Z"
+date: "2025-09-19T04:22:07Z"
 weight: 6
 chapter: false
 pre: " <b> 6. </b> "
@@ -38,6 +38,10 @@ Về tác phong, tôi luôn cố gắng hoàn thành tốt nhiệm vụ, tuân t
 * Nâng cao tính kỹ luật, chấp hành nghiêm chỉnh nội quy của công ty hoặc bất kỳ trong một tổ chức nào
 * Cải thiện trong cách tư duy giải quyết vấn đề
 * Học cách giao tiếp tốt hơn trong giao tiếp hằng ngày và trong công việc, xử lý tình huống
+
+
+
+
 
 
 

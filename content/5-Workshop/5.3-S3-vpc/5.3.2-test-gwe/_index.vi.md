@@ -1,6 +1,6 @@
 ---
 title : "Kiểm tra Gateway Endpoint"
-date: "2025-09-11T06:27:13Z"
+date: "2025-09-19T04:22:07Z"
 weight : 2
 chapter : false
 pre : " <b> 5.3.2 </b> "
@@ -80,6 +80,10 @@ Bạn đã tải thành công tệp lên bộ chứa S3 của mình. Bây giờ 
 #### Tóm tắt
 
 Chúc mừng bạn đã hoàn thành truy cập S3 từ VPC. Trong phần này, bạn đã tạo gateway endpoint cho Amazon S3 và sử dụng AWS CLI để tải file lên. Quá trình tải lên hoạt động vì gateway endpoint cho phép giao tiếp với S3 mà không cần Internet gateway gắn vào "VPC Cloud". Điều này thể hiện chức năng của gateway endpoint như một đường dẫn an toàn đến S3 mà không cần đi qua pub    lic Internet.
+
+
+
+
 
 
 

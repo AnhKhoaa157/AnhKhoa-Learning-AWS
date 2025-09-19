@@ -1,6 +1,6 @@
 ---
 title: "Worklog Tuần 12"
-date: "2025-09-11T06:27:13Z"
+date: "2025-09-19T04:22:07Z"
 weight: 2
 chapter: false
 pre: " <b> 1.12 </b> "
@@ -54,6 +54,10 @@ pre: " <b> 1.12 </b> "
 
 * Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
 * ...
+
+
+
+
 
 
 

@@ -1,6 +1,6 @@
 ---
 title : "Test the Interface Endpoint"
-date: "2025-09-11T06:27:13Z"
+date: "2025-09-19T04:22:07Z"
 weight : 3
 chapter : false
 pre : " <b> 5.4.3 </b> "
@@ -53,6 +53,10 @@ Now the file has been added to your S3 bucket. Let check your S3 bucket in the n
 3. Click the name of your bucket and you will see testfile2.xyz has been added to your bucket
 
 ![check bucket](/images/5-Workshop/5.4-S3-onprem/check-bucket.png)
+
+
+
+
 
 
 
