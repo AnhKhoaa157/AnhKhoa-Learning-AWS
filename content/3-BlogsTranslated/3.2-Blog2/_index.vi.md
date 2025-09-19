@@ -5,133 +5,140 @@ weight: 1
 chapter: false
 pre: " <b> 3.2. </b> "
 ---
+# Viết prompt chính xác với Stability AI Image Services trên Amazon Bedrock
 
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
+Thông tin nhanh:
 
-# Bắt đầu với healthcare data lakes: Sử dụng microservices
-
-Các data lake có thể giúp các bệnh viện và cơ sở y tế chuyển dữ liệu thành những thông tin chi tiết về doanh nghiệp và duy trì hoạt động kinh doanh liên tục, đồng thời bảo vệ quyền riêng tư của bệnh nhân. **Data lake** là một kho lưu trữ tập trung, được quản lý và bảo mật để lưu trữ tất cả dữ liệu của bạn, cả ở dạng ban đầu và đã xử lý để phân tích. data lake cho phép bạn chia nhỏ các kho chứa dữ liệu và kết hợp các loại phân tích khác nhau để có được thông tin chi tiết và đưa ra các quyết định kinh doanh tốt hơn.
-
-Bài đăng trên blog này là một phần của loạt bài lớn hơn về việc bắt đầu cài đặt data lake dành cho lĩnh vực y tế. Trong bài đăng blog cuối cùng của tôi trong loạt bài, *“Bắt đầu với data lake dành cho lĩnh vực y tế: Đào sâu vào Amazon Cognito”*, tôi tập trung vào các chi tiết cụ thể của việc sử dụng Amazon Cognito và Attribute Based Access Control (ABAC) để xác thực và ủy quyền người dùng trong giải pháp data lake y tế. Trong blog này, tôi trình bày chi tiết cách giải pháp đã phát triển ở cấp độ cơ bản, bao gồm các quyết định thiết kế mà tôi đã đưa ra và các tính năng bổ sung được sử dụng. Bạn có thể truy cập các code samples cho giải pháp tại Git repo này để tham khảo.
+- Tác giả: Suleman Patel, Isha Dua, Fabio Branco, Maxfield Hulker  
+- Ngày đăng: 18 Sep 2025  
+- Chủ đề: Amazon Bedrock, Generative AI, Stability AI Image Services
 
 ---
 
-## Hướng dẫn kiến trúc
+## Mục lục
 
-Thay đổi chính kể từ lần trình bày cuối cùng của kiến trúc tổng thể là việc tách dịch vụ đơn lẻ thành một tập hợp các dịch vụ nhỏ để cải thiện khả năng bảo trì và tính linh hoạt. Việc tích hợp một lượng lớn dữ liệu y tế khác nhau thường yêu cầu các trình kết nối chuyên biệt cho từng định dạng; bằng cách giữ chúng được đóng gói riêng biệt với microservices, chúng ta có thể thêm, xóa và sửa đổi từng trình kết nối mà không ảnh hưởng đến những kết nối khác. Các microservices được kết nối rời thông qua tin nhắn publish/subscribe tập trung trong cái mà tôi gọi là “pub/sub hub”.
-
-Giải pháp này đại diện cho những gì tôi sẽ coi là một lần lặp nước rút hợp lý khác từ last post của tôi. Phạm vi vẫn được giới hạn trong việc nhập và phân tích cú pháp đơn giản của các **HL7v2 messages** được định dạng theo **Quy tắc mã hóa 7 (ER7)** thông qua giao diện REST.
-
-**Kiến trúc giải pháp bây giờ như sau:**
-
-> *Hình 1. Kiến trúc tổng thể; những ô màu thể hiện những dịch vụ riêng biệt.*
-
----
-
-Mặc dù thuật ngữ *microservices* có một số sự mơ hồ cố hữu, một số đặc điểm là chung:  
-- Chúng nhỏ, tự chủ, kết hợp rời rạc  
-- Có thể tái sử dụng, giao tiếp thông qua giao diện được xác định rõ  
-- Chuyên biệt để giải quyết một việc  
-- Thường được triển khai trong **event-driven architecture**
-
-Khi xác định vị trí tạo ranh giới giữa các microservices, cần cân nhắc:  
-- **Nội tại**: công nghệ được sử dụng, hiệu suất, độ tin cậy, khả năng mở rộng  
-- **Bên ngoài**: chức năng phụ thuộc, tần suất thay đổi, khả năng tái sử dụng  
-- **Con người**: quyền sở hữu nhóm, quản lý *cognitive load*
+1. Tóm tắt nhanh
+2. Tổng quan giải pháp
+3. Điều kiện tiên quyết
+4. Cấu trúc prompt để tối đa kiểm soát  
+	4.1. Chọn định dạng prompt phù hợp  
+	4.2. Xây prompt theo mô-đun (modular)  
+	4.3. Dùng negative prompt để tinh lọc  
+	4.4. Dùng trọng số (weighting) để nhấn/giảm yếu tố
+5. Hướng dẫn phong cách (stylistic guidance)  
+	5.1. Trộn nhãn phong cách (style tag layering)  
+	5.2. Gọi tên phong cách tham chiếu  
+	5.3. Ảnh tham chiếu (image-to-image)  
+	5.4. Điều khiển ánh sáng (lighting)  
+	5.5. Posing và framing  
+	5.6. Ví dụ tổng hợp
+6. Thực hành và khắc phục sự cố
+7. Kết luận
+8. Tài nguyên liên quan
 
 ---
 
-## Lựa chọn công nghệ và phạm vi giao tiếp
+## 1. Tóm tắt nhanh
 
-| Phạm vi giao tiếp                        | Các công nghệ / mô hình cần xem xét                                                        |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------ |
-| Trong một microservice                   | Amazon Simple Queue Service (Amazon SQS), AWS Step Functions                               |
-| Giữa các microservices trong một dịch vụ | AWS CloudFormation cross-stack references, Amazon Simple Notification Service (Amazon SNS) |
-| Giữa các dịch vụ                         | Amazon EventBridge, AWS Cloud Map, Amazon API Gateway                                      |
+Amazon Bedrock hiện hỗ trợ Stability AI Image Services (một tập API cho tạo/sửa ảnh dựa trên các dòng Stable Diffusion/Stable Image), cho phép kiểm soát chi tiết quá trình tạo ảnh: inpainting, style transfer, recolor, xoá phông, xoá vật thể, style guide, v.v. Bài viết tập trung vào kỹ thuật viết prompt để đạt đầu ra chính xác, nhất quán cho mục đích chuyên nghiệp (marketing, brand guideline, product shot). Trọng tâm là cách cấu trúc prompt, kỹ thuật nâng cao (negative prompt, weighting), hướng dẫn phong cách (style tags, tham chiếu nghệ sĩ, ảnh tham chiếu), và thực hành/best practices.
+
+## 2. Tổng quan giải pháp
+
+- Stability AI Image Services được cung cấp qua Amazon Bedrock dưới dạng API.  
+- Mục tiêu: chuyển ý tưởng thị giác thành tài sản hình ảnh dùng được (production-ready) bằng prompt rõ ràng, có cấu trúc và có trọng số.  
+- Mã mẫu: GitHub stabilityai-sample-notebooks (AWS Samples).
+
+## 3. Điều kiện tiên quyết
+
+1. Tài khoản AWS và thông tin xác thực truy cập lập trình.  
+2. Gán quyền Amazon Bedrock cho IAM user/role.  
+3. Yêu cầu quyền truy cập các mô hình trên Bedrock.  
+4. Tham khảo “Getting started with the API” trong tài liệu Bedrock.
+
+## 4. Cấu trúc prompt để tối đa kiểm soát
+
+### 4.1 Chọn định dạng prompt phù hợp
+
+- Ngôn ngữ tự nhiên: dễ đọc, linh hoạt; phù hợp khám phá/đối thoại.  
+- Dạng “tag-based”: chính xác, ngắn gọn, thuận tiện kiểm soát cấu trúc.  
+- Dạng lai (hybrid): kết hợp cả hai và cho phép thêm trọng số/nhấn mạnh.
+
+Gợi ý: Stable Diffusion 3.5 phản hồi tốt với prompt ngôn ngữ tự nhiên; UI kỹ thuật thường dùng tag-based; hybrid cho cân bằng giữa rõ ràng và kiểm soát.
+
+### 4.2 Xây prompt theo mô-đun (modular)
+
+Chia prompt thành các khối riêng để tránh mâu thuẫn, dễ tinh chỉnh và debug:
+
+- Prefix: định giọng điệu/ý định (ví dụ: “fashion editorial portrait of”).  
+- Subject: chủ thể, đặc điểm bề mặt (màu da, tóc, chất liệu…).  
+- Modifiers: trang phục/phụ kiện/chất liệu.  
+- Action/Pose: tư thế, chuyển động, góc nhìn.  
+- Environment: bối cảnh, ánh sáng, không khí.  
+- Style: mỹ học, mood (ví dụ: chiaroscuro, abstract).  
+- Camera/Lighting: tiêu cự, setup đèn, DOF.
+
+Lưu ý: thứ tự mô-đun ảnh hưởng trọng số thị giác; đặt “style” sớm có thể làm phong cách chi phối mạnh hơn.
+
+### 4.3 Negative prompt để tinh lọc
+
+Nêu rõ “không muốn” xuất hiện để giảm artifact và tăng độ chuyên nghiệp (ví dụ: “no watermark, no weird hands, no cartoon filters”).  
+Tham khảo thêm các token thường dùng cho “low quality/noise”, “anatomy issues”, “style clashes”, “technical errors”, “general cleanup”.
+
+### 4.4 Trọng số (weighting) để nhấn/giảm yếu tố
+
+Sử dụng cú pháp (<term>:<weight>) hoặc ((<term>)) để tăng/giảm mức ảnh hưởng:  
+- 0.0–1.0: giảm nhấn (de-emphasize).  
+- 1.1–2.0: tăng nhấn (emphasize).  
+Ví dụ: (character:1.8), (background:1.1).  
+Có thể dùng trong negative prompt để điều chỉnh độ tránh (ví dụ: (blurry:0.2)).
+
+## 5. Hướng dẫn phong cách (stylistic guidance)
+
+### 5.1 Style tag layering (trộn nhãn phong cách)
+
+Pha trộn các nhãn thẩm mỹ quen thuộc (editorial, analog film, anime, cyberpunk, brutalist…) theo bản sắc thương hiệu. Bảng gợi ý: Retro/Y2K, Clean modern, Bold streetwear, Hyperreal surrealism…
+
+### 5.2 Gọi tên phong cách tham chiếu
+
+Có thể “gọi” phong cách của một nghệ sĩ/genre như một tín hiệu thẩm mỹ, kết hợp với phrasing riêng và weighting để dẫn dắt chất liệu, ánh sáng, bố cục, tông màu.
+
+### 5.3 Dùng ảnh tham chiếu (image-to-image)
+
+Sử dụng ảnh tham chiếu để khóa pose/màu/bố cục. Các workflow hỗ trợ: Structure, Sketch, Style. Công cụ như ControlNet, IP-Adapter, CLIPlike captioning tăng kiểm soát. Ví dụ quy trình:  
+1) Chọn ảnh editorial chất lượng cao.  
+2) Dùng ControlNet (depth/canny/seg) để khóa pose/biên dạng.  
+3) Thêm prompt để định phong cách và chi tiết.
+
+### 5.4 Điều khiển ánh sáng (lighting)
+
+Ánh sáng quyết định mood, chiều sâu, ngôn ngữ nhiếp ảnh. Gợi ý: High-contrast studio, Soft editorial, Colored gel, Natural bounce… chọn theo use case (beauty, streetwear, outdoor…).
+
+### 5.5 Posing và framing
+
+Chèn cues về tư thế/góc máy để tránh cứng, tăng tự nhiên: “looking off camera”, “hands in motion”, “seated with body turned”, “shot from low angle”...
+
+### 5.6 Ví dụ tổng hợp
+
+Ghép các thành phần: mô tả chủ thể, pose, môi trường, ánh sáng, tiêu cự, mục đích chiến dịch; kèm negative prompt để làm sạch artifact.
+
+## 6. Thực hành và khắc phục sự cố (best practices & troubleshooting)
+
+- Ghi log prompt; thay đổi một biến mỗi lần; lưu seed/base images; so sánh dạng grid.  
+- Khi “style random”: làm rõ thuật ngữ, thêm weight, bỏ xung đột.  
+- Khi “méo khuôn mặt”: thêm cues chân dung/ánh sáng; điều chỉnh pose.  
+- Khi “quá tối”: xác định rõ nguồn sáng/hướng sáng.  
+- Khi “lặp lại pose”: thay seed/đổi góc máy/hành động.  
+- Khi “thiếu thực”: bổ sung negative như “cartoon, digital texture, distorted”.
+
+## 7. Kết luận
+
+Kỹ thuật prompting nâng cao biến ý tưởng thành ảnh chất lượng chuyên nghiệp. Stability AI Image Services trên Amazon Bedrock cung cấp các công cụ kiểm soát chi tiết (tạo và chỉnh sửa), hữu ích cho chiến dịch marketing, đảm bảo nhận diện thương hiệu và ảnh sản phẩm. Kết hợp hiểu biết kỹ thuật với ý định sáng tạo giúp đạt độ chính xác và nhất quán cao. Tham khảo thêm models/ví dụ trong Bedrock và GitHub mẫu.
+
+## 8. Tài nguyên liên quan
+
+- Getting started with the API (Amazon Bedrock)  
+- Stability AI’s foundation models trên Amazon SageMaker JumpStart  
+- GitHub: aws-samples/stabilityai-sample-notebooks
+- [Xem bài gốc tại AWS](https://aws.amazon.com/vi/blogs/machine-learning/prompting-for-precision-with-stability-ai-image-services-in-amazon-bedrock/)
 
 ---
-
-## The pub/sub hub
-
-Việc sử dụng kiến trúc **hub-and-spoke** (hay message broker) hoạt động tốt với một số lượng nhỏ các microservices liên quan chặt chẽ.  
-- Mỗi microservice chỉ phụ thuộc vào *hub*  
-- Kết nối giữa các microservice chỉ giới hạn ở nội dung của message được xuất  
-- Giảm số lượng synchronous calls vì pub/sub là *push* không đồng bộ một chiều
-
-Nhược điểm: cần **phối hợp và giám sát** để tránh microservice xử lý nhầm message.
-
----
-
-## Core microservice
-
-Cung cấp dữ liệu nền tảng và lớp truyền thông, gồm:  
-- **Amazon S3** bucket cho dữ liệu  
-- **Amazon DynamoDB** cho danh mục dữ liệu  
-- **AWS Lambda** để ghi message vào data lake và danh mục  
-- **Amazon SNS** topic làm *hub*  
-- **Amazon S3** bucket cho artifacts như mã Lambda
-
-> Chỉ cho phép truy cập ghi gián tiếp vào data lake qua hàm Lambda → đảm bảo nhất quán.
-
----
-
-## Front door microservice
-
-- Cung cấp API Gateway để tương tác REST bên ngoài  
-- Xác thực & ủy quyền dựa trên **OIDC** thông qua **Amazon Cognito**  
-- Cơ chế *deduplication* tự quản lý bằng DynamoDB thay vì SNS FIFO vì:
-  1. SNS deduplication TTL chỉ 5 phút
-  2. SNS FIFO yêu cầu SQS FIFO
-  3. Chủ động báo cho sender biết message là bản sao
-
----
-
-## Staging ER7 microservice
-
-- Lambda “trigger” đăng ký với pub/sub hub, lọc message theo attribute  
-- Step Functions Express Workflow để chuyển ER7 → JSON  
-- Hai Lambda:
-  1. Sửa format ER7 (newline, carriage return)
-  2. Parsing logic  
-- Kết quả hoặc lỗi được đẩy lại vào pub/sub hub
-
----
-
-## Tính năng mới trong giải pháp
-
-### 1. AWS CloudFormation cross-stack references
-Ví dụ *outputs* trong core microservice:
-```yaml
-Outputs:
-  Bucket:
-    Value: !Ref Bucket
-    Export:
-      Name: !Sub ${AWS::StackName}-Bucket
-  ArtifactBucket:
-    Value: !Ref ArtifactBucket
-    Export:
-      Name: !Sub ${AWS::StackName}-ArtifactBucket
-  Topic:
-    Value: !Ref Topic
-    Export:
-      Name: !Sub ${AWS::StackName}-Topic
-  Catalog:
-    Value: !Ref Catalog
-    Export:
-      Name: !Sub ${AWS::StackName}-Catalog
-  CatalogArn:
-    Value: !GetAtt Catalog.Arn
-    Export:
-      Name: !Sub ${AWS::StackName}-CatalogArn
-
-
-
-
-
-
-
-
-
-

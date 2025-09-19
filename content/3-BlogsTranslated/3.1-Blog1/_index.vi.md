@@ -3,13 +3,8 @@ title: "Blog 1"
 date: "2025-09-19T09:01:25Z"
 weight: 1
 chapter: false
-pre: " <b> 3.1. </b> "
+pre: " <b> 3.1. </b> "  
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
----
-# BLOG 1
 # Cho phép khách hàng triển khai AI agent sẵn sàng sản xuất ở quy mô lớn
 
 > Ghi chú: Bố cục đã được chuẩn hóa theo template (metadata, mục lục, đánh số mục) để dễ đọc và đồng nhất với Blog 2. Nội dung giữ nguyên ý chính của bài gốc.
