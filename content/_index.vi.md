@@ -1,6 +1,6 @@
 ---
 title: "Báo cáo thực tập"
-date: "2025-09-19T04:22:07Z"
+date: "2025-09-19T09:01:25Z"
 weight: 1
 chapter: false
 ---
@@ -38,6 +38,7 @@ chapter: false
 5.  [Workshop](5-Workshop/)
 6.  [Tự đánh giá](6-Self-evaluation/)
 7.  [Chia sẻ, đóng góp ý kiến](7-Feedback/)
+
 
 
 

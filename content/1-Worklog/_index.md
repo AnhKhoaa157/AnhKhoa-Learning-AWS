@@ -1,6 +1,6 @@
 ---
 title: "Worklog"
-date: "2025-09-19T04:22:07Z"
+date: "2025-09-19T09:01:25Z"
 weight: 1
 chapter: false
 pre: " <b> 1. </b> "
@@ -37,6 +37,7 @@ Typically, and as a standard, a worklog is carried out over about 3 months (thro
 **Week 11:** [Doing task M...](1.11-week11/)
 
 **Week 12:** [Doing task N...](1.12-week12/)
+
 
 
 

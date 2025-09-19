@@ -1,6 +1,6 @@
 ---
 title: "Bản đề xuất"
-date: "2025-09-19T04:22:07Z"
+date: "2025-09-19T09:01:25Z"
 weight: 2
 chapter: false
 pre: " <b> 2. </b> "
@@ -106,6 +106,7 @@ Hoặc tải [tệp ước tính ngân sách](../attachments/budget_estimation.p
 ### 8. Kết quả kỳ vọng  
 *Cải tiến kỹ thuật*: Dữ liệu và phân tích thời gian thực thay thế quy trình thủ công. Có thể mở rộng tới 10–15 trạm.  
 *Giá trị dài hạn*: Nền tảng dữ liệu 1 năm cho nghiên cứu AI, có thể tái sử dụng cho các dự án tương lai.
+
 
 
 

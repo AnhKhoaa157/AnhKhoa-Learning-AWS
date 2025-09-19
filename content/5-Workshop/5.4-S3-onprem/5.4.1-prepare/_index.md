@@ -1,6 +1,6 @@
 ---
 title : "Prepare the environment"
-date: "2025-09-19T04:22:07Z"
+date: "2025-09-19T09:01:25Z"
 weight : 1
 chapter : false
 pre : " <b> 5.4.1 </b> "
@@ -52,6 +52,7 @@ This workshop uses a strongSwan VPN running on an EC2 instance to simulate conne
 ![add route](/images/5-Workshop/5.4-S3-onprem/add-route.png)
 
 6. Click Save changes
+
 
 
 
