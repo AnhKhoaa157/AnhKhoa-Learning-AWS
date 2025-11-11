@@ -1,6 +1,6 @@
 ---
 title: "Event 1"
-date: "2025-09-19T09:01:25Z"
+date: "2025-11-11T02:45:23Z"
 weight: 1
 chapter: false
 pre: " <b> 4.1. </b> "
@@ -124,6 +124,8 @@ Attending the **“GenAI-powered App-DB Modernization”** workshop was extremel
 *Add your event photos here*  
 
 > Overall, the event not only provided technical knowledge but also helped me reshape my thinking about application design, system modernization, and cross-team collaboration.
+
+
 
 
 

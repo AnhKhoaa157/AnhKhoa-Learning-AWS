@@ -1,6 +1,6 @@
 ---
 title: "Self-Assessment"
-date: "2025-09-19T09:01:25Z"
+date: "2025-11-11T02:45:23Z"
 weight: 6
 chapter: false
 pre: " <b> 6. </b> "
@@ -37,6 +37,8 @@ To objectively reflect on my internship period, I would like to evaluate myself 
 * Strengthen discipline and strictly comply with the rules and regulations of the company or any organization  
 * Improve problem-solving thinking  
 * Enhance communication skills in both daily interactions and professional contexts, including handling situations effectively
+
+
 
 
 

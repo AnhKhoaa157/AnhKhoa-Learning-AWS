@@ -1,6 +1,6 @@
 ---
 title : "Kiểm tra Interface Endpoint"
-date: "2025-09-19T09:01:25Z"
+date: "2025-11-11T02:45:23Z"
 weight : 3
 chapter : false
 pre : " <b> 5.4.3 </b> "
@@ -49,6 +49,8 @@ Bây giờ tệp đã được thêm vào bộ chứa S3 của bạn. Hãy kiể
 3. Click tên bucket của bạn và bạn sẽ thấy testfile2.xyz đã được thêm vào s3 bucket của bạn
 
 ![check bucket](/images/5-Workshop/5.4-S3-onprem/check-bucket.png)
+
+
 
 
 

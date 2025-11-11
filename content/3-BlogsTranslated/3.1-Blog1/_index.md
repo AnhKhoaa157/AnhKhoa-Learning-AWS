@@ -1,6 +1,6 @@
 ---
 title: "Blog 1"
-date: "2025-09-19T09:01:25Z"
+date: "2025-11-11T02:45:23Z"
 weight: 1
 chapter: false
 pre: " <b> 3.1. </b> "
@@ -253,6 +253,8 @@ Resources:
           CATALOG_ARN: !ImportValue
             'Fn::Sub': '${CoreStackName}-CatalogArn'
 ```
+
+
 
 
 

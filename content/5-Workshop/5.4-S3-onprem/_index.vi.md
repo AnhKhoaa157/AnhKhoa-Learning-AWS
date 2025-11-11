@@ -1,6 +1,6 @@
 ---
 title : "Truy cập S3 từ môi trường truyền thống"
-date: "2025-09-19T09:01:25Z"
+date: "2025-11-11T02:45:23Z"
 weight : 4 
 chapter : false
 pre : " <b> 5.4. </b> "
@@ -15,6 +15,8 @@ pre : " <b> 5.4. </b> "
     + Interface Endpoint cho phép bạn kết nối với các dịch vụ do AWS PrivateLink cung cấp. Các dịch vụ này bao gồm một số dịch vụ AWS, dịch vụ do các đối tác và khách hàng AWS lưu trữ trong VPC của riêng họ (gọi tắt là Dịch vụ PrivateLink endpoints) và các dịch vụ Đối tác AWS Marketplace. Đối với workshop này, chúng ta sẽ tập trung vào việc kết nối với Amazon S3.
     
 ![Interface endpoint architecture](/images/5-Workshop/5.4-S3-onprem/diagram3.png)
+
+
 
 
 

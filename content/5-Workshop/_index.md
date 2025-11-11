@@ -1,6 +1,6 @@
 ---
 title: "Workshop"
-date: "2025-09-19T09:01:25Z"
+date: "2025-11-11T02:45:23Z"
 weight: 5
 chapter: false
 pre: " <b> 5. </b> "
@@ -29,6 +29,8 @@ You will create two types of endpoints to access Amazon S3: a Gateway VPC endpoi
 4. [Access S3 from On-premises](5.4-S3-onprem/)
 5. [VPC Endpoint Policies (Bonus)](5.5-Policy/)
 6. [Clean up](5.6-Cleanup/)
+
+
 
 
 

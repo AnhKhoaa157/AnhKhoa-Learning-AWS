@@ -1,6 +1,6 @@
 ---
 title : "Clean up"
-date: "2025-09-19T09:01:25Z"
+date: "2025-11-11T02:45:23Z"
 weight : 6
 chapter : false
 pre : " <b> 5.6. </b> "
@@ -30,6 +30,8 @@ In this workshop, you learned architecture patterns for accessing Amazon S3 with
 + Choose the bucket we created for the lab, click and confirm empty. Click delete and confirm delete.
 
 ![delete s3](/images/5-Workshop/5.6-Cleanup/delete-s3.png)
+
+
 
 
 

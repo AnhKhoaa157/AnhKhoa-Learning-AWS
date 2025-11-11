@@ -1,6 +1,6 @@
 ---
 title: "Internship Report"
-date: "2025-09-19T09:01:25Z"
+date: "2025-11-11T02:45:23Z"
 weight: 1
 chapter: false
 ---
@@ -42,6 +42,8 @@ chapter: false
 5.  [Workshop](5-Workshop/)
 6.  [Self-evaluation](6-Self-evaluation/)
 7.  [Sharing and Feedback](7-Feedback/)
+
+
 
 
 

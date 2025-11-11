@@ -1,6 +1,6 @@
 ---
 title: "Week 8 Worklog"
-date: "2025-09-19T09:01:25Z"
+date: "2025-11-11T02:45:23Z"
 weight: 1
 chapter: false
 pre: " <b> 1.8. </b> "
@@ -55,6 +55,8 @@ pre: " <b> 1.8. </b> "
 
 * Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
 * ...
+
+
 
 
 
