@@ -1,6 +1,6 @@
 ---
 title: "Sharing and Feedback"
-date: "2025-11-11T02:45:23Z"
+date: "2025-11-11T03:24:36Z"
 weight: 7
 chapter: false
 pre: " <b> 7. </b> "
@@ -45,6 +45,7 @@ The company provides an internship allowance and offers flexible working hours w
 - Do you have any suggestions to improve the internship experience?  
 - Would you like to continue this program in the future?  
 - Any other comments (free sharing):
+
 
 
 

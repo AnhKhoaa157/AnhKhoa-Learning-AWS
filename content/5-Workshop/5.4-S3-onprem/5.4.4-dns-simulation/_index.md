@@ -1,6 +1,6 @@
 ---
 title : "On-premises DNS Simulation"
-date: "2025-11-11T02:45:23Z"
+date: "2025-11-11T03:24:36Z"
 weight : 4
 chapter : false
 pre : " <b> 5.4.4 </b> "
@@ -109,6 +109,7 @@ aws s3 ls --endpoint-url https://s3.us-east-1.amazonaws.com
 ![create rule](/images/5-Workshop/5.4-S3-onprem/terminal.png)
 
 In this section you created an Interface endpoint for Amazon S3. This endpoint can be reached from on-premises through Site-to-Site VPN or AWS Direct Connect. Route 53 Resolver outbound endpoints simulated forwarding DNS requests from on-premises to a Private Hosted Zone running the cloud. Route 53 inbound Endpoints recieved the resolution request and returned a response containing the IP addresses of the VPC interface endpoint. Using DNS to resolve the endpoint IP addresses provides high availability in-case of an Availability Zone outage.
+
 
 
 

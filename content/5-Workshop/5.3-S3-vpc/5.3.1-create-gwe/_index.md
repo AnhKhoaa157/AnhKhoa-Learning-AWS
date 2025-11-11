@@ -1,6 +1,6 @@
 ---
 title : "Create a gateway endpoint"
-date: "2025-11-11T02:45:23Z"
+date: "2025-11-11T03:24:36Z"
 weight : 1
 chapter : false
 pre : " <b> 5.3.1 </b> "
@@ -38,6 +38,7 @@ You will see **6 existing VPC endpoints** that support **AWS Systems Manager (SS
 + Click **Create endpoint**, then click x after receiving a successful creation message.
 
 ![endpoint](/images/5-Workshop/5.3-S3-vpc/complete.png)
+
 
 
 

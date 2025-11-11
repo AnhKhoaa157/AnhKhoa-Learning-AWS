@@ -1,6 +1,6 @@
 ---
 title : "Test the Gateway Endpoint"
-date: "2025-11-11T02:45:23Z"
+date: "2025-11-11T03:24:36Z"
 weight : 2
 chapter : false
 pre : " <b> 5.3.2 </b> "
@@ -80,6 +80,7 @@ You have successfully uploaded the file to your S3 bucket. You can now terminate
 #### Section summary
 
 Congratulation on completing access to S3 from VPC. In this section, you created a Gateway endpoint for Amazon S3, and used the AWS CLI to upload an object. The upload worked because the Gateway endpoint allowed communication to S3, without needing an Internet Gateway attached to "VPC Cloud". This demonstrates the functionality of the Gateway endpoint as a secure path to S3 without traversing the Public Internet.
+
 
 
 

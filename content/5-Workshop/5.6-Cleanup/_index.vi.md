@@ -1,6 +1,6 @@
 ---
 title : "Dọn dẹp tài nguyên"
-date: "2025-11-11T02:45:23Z"
+date: "2025-11-11T03:24:36Z"
 weight : 6
 chapter : false
 pre : " <b> 5.6. </b> "
@@ -35,6 +35,7 @@ Bằng cách tạo Interface endpoint, bạn đã mở rộng kết nối S3 đ�
 + Chọn bucket chúng ta đã tạo cho lab, nhấp chuột và xác nhận là empty. Nhấp Delete và xác nhận delete.
 + 
 ![delete s3](/images/5-Workshop/5.6-Cleanup/delete-s3.png)
+
 
 
 

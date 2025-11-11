@@ -1,6 +1,6 @@
 ---
 title: "Worklog Tuần 6"
-date: "2025-11-11T02:45:23Z"
+date: "2025-11-11T03:24:36Z"
 weight: 1
 chapter: false
 pre: " <b> 1.6. </b> "
@@ -54,6 +54,7 @@ pre: " <b> 1.6. </b> "
 
 * Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
 * ...
+
 
 
 
