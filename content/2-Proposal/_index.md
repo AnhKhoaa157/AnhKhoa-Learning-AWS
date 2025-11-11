@@ -29,7 +29,7 @@ Devteria Game Store is a scalable e-commerce platform for digital game licensing
 
 ### 3. Solution Architecture
 
-![Devteria Architecture](../images/2-Proposal/devteria-arch.png)
+![Devteria Architecture](../images/proposal.jpg)
 
 **Core Components:**
 - **Frontend**: CloudFront CDN + S3 (React app, global cache, <2s load)
