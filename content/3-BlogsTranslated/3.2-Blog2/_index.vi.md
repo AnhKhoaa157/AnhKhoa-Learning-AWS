@@ -1,6 +1,6 @@
 ---
 title: "Blog 2"
-date: "2025-11-11T03:24:36Z"
+date: "2025-12-04T07:05:17Z"
 weight: 1
 chapter: false
 pre: " <b> 3.2. </b> "
@@ -142,5 +142,6 @@ Kỹ thuật prompting nâng cao biến ý tưởng thành ảnh chất lượng
 - [Xem bài gốc tại AWS](https://aws.amazon.com/vi/blogs/machine-learning/prompting-for-precision-with-stability-ai-image-services-in-amazon-bedrock/)
 
 ---
+
 
 

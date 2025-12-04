@@ -1,6 +1,6 @@
 ---
 title : "VPC Endpoint Policies"
-date: "2025-11-11T03:24:36Z"
+date: "2025-12-04T07:05:17Z"
 weight : 5
 chapter : false
 pre : " <b> 5.5 </b> "
@@ -93,6 +93,7 @@ Sau đó chúng ta kiểm tra truy cập vào S3 bucket đầu tiên
  Câu lệnh xảy ra lỗi bởi vì bucket không có quyền truy cập bởi VPC endpoint policy.
 
 Trong phần này, bạn đã tạo chính sách VPC Endpoint cho Amazon S3 và sử dụng AWS CLI để kiểm tra chính sách. Các hoạt động AWS CLI liên quan đến bucket S3 ban đầu của bạn thất bại vì bạn áp dụng một chính sách chỉ cho phép truy cập đến bucket thứ hai mà bạn đã tạo. Các hoạt động AWS CLI nhắm vào bucket thứ hai của bạn thành công vì chính sách cho phép chúng. Những chính sách này có thể hữu ích trong các tình huống khi bạn cần kiểm soát quyền truy cập vào tài nguyên thông qua VPC Endpoint.
+
 
 
 

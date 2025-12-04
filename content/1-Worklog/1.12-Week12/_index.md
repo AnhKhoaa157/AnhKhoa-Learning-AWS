@@ -1,70 +1,56 @@
 ---
 title: "Week 12 Worklog"
-date: "2025-11-11T03:24:36Z"
-weight: 2
+date: "2025-12-04T07:05:17Z"
+weight: 12
 chapter: false
 pre: " <b> 1.12. </b> "
 ---
 {{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
+ **Note:** Reference only.
 {{% /notice %}}
 
+##  Phase 3 - Week 12: Graduation & Career Prep
 
-### Week 12 Objectives:
+###  Achievements:
 
-* Connect and get acquainted with members of First Cloud Journey.
-* Understand basic AWS services, how to use the console & CLI.
+**FCJ Demo Day:**
+*  Presented capstone project
+*  Received Certificate of Completion
+*  Celebrated with cohort!
 
-### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
+**Professional Development:**
+*  Wrote blog post about project
+*  Passed AWS Cloud Practitioner practice test (850/1000)
+*  Updated LinkedIn profile
+*  Created portfolio website with 3 projects
+*  Prepared CV: listed 30+ AWS services
+*  Applied to 10 Cloud Engineer positions
 
+**Reflection:**
+*  12 weeks: AWS beginner  Cloud Practitioner
+*  Portfolio: 3 major projects + 15 labs
+*  Skills: 30+ AWS services hands-on
+*  Cost: $25 total (Free Tier!)
 
-### Week 12 Achievements:
+###  Final Statistics:
+* **Duration:** 12 weeks
+* **Services:** 30+ AWS services
+* **Projects:** 3 major + 15 labs
+* **Code:** 5000+ lines
+* **Stacks:** 50+ CloudFormation
+* **Cost:** $25 (Free Tier!)
 
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+ **Congratulations on completing FCJ Bootcamp 2025!** 
 
-* Successfully created and configured an AWS Free Tier account.
+###  Acknowledgments:
+* First Cloud Journey mentors
+* Cohort members
+* AWS for amazing services
 
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
-
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
-
-* Used AWS CLI to perform basic operations such as:
-
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
-
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
-
-
-
-
-
-
-
-
-
-
-
-
+###  Next Steps:
+*  Take AWS Certified Cloud Practitioner exam
+*  Learn Solutions Architect, Developer
+*  Contribute to open-source AWS projects
+*  Start Cloud Engineering career
+*  Mentor new FCJ cohort
 

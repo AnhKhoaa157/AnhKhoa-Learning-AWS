@@ -1,6 +1,6 @@
 ---
 title: "Blog 1"
-date: "2025-11-11T03:24:36Z"
+date: "2025-12-04T07:05:17Z"
 weight: 1
 chapter: false
 pre: " <b> 3.1. </b> "  
@@ -259,6 +259,7 @@ Resources:
 ```
 
 Lưu ý: Cross-stack exports giúp tách module trong deployment nhưng tạo phụ thuộc về thứ tự triển khai — stack export phải tồn tại trước khi stack import có thể resolve các giá trị.
+
 
 
 

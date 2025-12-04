@@ -1,6 +1,6 @@
 ---
 title: "Nhật ký công việc"
-date: "2025-11-11T03:24:36Z"
+date: "2025-12-04T07:05:17Z"
 weight: 1
 chapter: false
 pre: " <b> 1. </b> "
@@ -38,6 +38,7 @@ Thông thường và cũng là tiêu chuẩn, một worklog được thực hi�
 **Tuần 11:** [Làm công việc M...](1.11-week11/)
 
 **Tuần 12:** [Làm công việc N...](1.12-week12/)
+
 
 
 

@@ -1,71 +1,55 @@
 ---
-title: "Worklog Tuần 12"
-date: "2025-11-11T03:24:36Z"
-weight: 2
+title: "Nhật ký Tuần 12"
+date: "2025-12-04T07:05:17Z"
+weight: 12
 chapter: false
-pre: " <b> 1.12 </b> "
+pre: " <b> 1.12. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
+{{% notice warning %}} 
+ **Lưu ý:** Chỉ tham khảo.
 {{% /notice %}}
 
-### Mục tiêu tuần 12:
+##  Giai đoạn 3 - Tuần 12: Tốt nghiệp & Chuẩn bị Nghề nghiệp
 
-* Kết nối, làm quen với các thành viên trong First Cloud Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+###  Thành tựu:
 
-### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
+**FCJ Demo Day:**
+*  Trình bày capstone project
+*  Nhận Chứng chỉ Hoàn thành
+*  Ăn mừng với cohort!
 
+**Phát triển Chuyên môn:**
+*  Viết bài blog về dự án
+*  Vượt qua bài kiểm tra thực hành AWS Cloud Practitioner (850/1000)
+*  Cập nhật hồ sơ LinkedIn
+*  Tạo website portfolio với 3 dự án
+*  Chuẩn bị CV: liệt kê 30+ dịch vụ AWS
+*  Nộp đơn 10 vị trí Cloud Engineer
 
-### Kết quả đạt được tuần 12:
+**Suy ngẫm:**
+*  12 tuần: Người mới AWS  Cloud Practitioner
+*  Portfolio: 3 dự án lớn + 15 labs
+*  Kỹ năng: 30+ dịch vụ AWS thực hành
+*  Chi phí: $25 tổng (Free Tier!)
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+###  Thống kê Cuối cùng:
+* **Thời lượng:** 12 tuần
+* **Dịch vụ:** 30+ dịch vụ AWS
+* **Dự án:** 3 lớn + 15 labs
+* **Code:** 5000+ dòng
+* **Stacks:** 50+ CloudFormation
+* **Chi phí:** $25 (Free Tier!)
 
-* Đã tạo và cấu hình AWS Free Tier account thành công.
+ **Chúc mừng đã hoàn thành FCJ Bootcamp 2025!** 
 
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
+###  Cảm ơn:
+* Mentors First Cloud Journey
+* Các thành viên cohort
+* AWS vì các dịch vụ tuyệt vời
 
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+###  Bước tiếp theo:
+*  Thi AWS Certified Cloud Practitioner
+*  Học Solutions Architect, Developer
+*  Đóng góp cho các dự án AWS open-source
+*  Bắt đầu sự nghiệp Cloud Engineering
+*  Hướng dẫn cohort FCJ mới
