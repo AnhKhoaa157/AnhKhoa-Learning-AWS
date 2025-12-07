@@ -1,6 +1,6 @@
 ---
 title : "Access S3 from on-premises"
-date: "2025-12-04T07:05:17Z"
+date: 2025-12-01
 weight : 4
 chapter : false
 pre : " <b> 5.4. </b> "
@@ -15,20 +15,6 @@ pre : " <b> 5.4. </b> "
     + Interface endpoints allow you to connect to services powered by AWS PrivateLink. These services include some AWS services, services hosted by other AWS customers and partners in their own VPCs (referred to as PrivateLink Endpoint Services), and supported AWS Marketplace Partner services. For this workshop, we will focus on connecting to Amazon S3.
 
 ![Interface endpoint architecture](/images/5-Workshop/5.4-S3-onprem/diagram3.png)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
