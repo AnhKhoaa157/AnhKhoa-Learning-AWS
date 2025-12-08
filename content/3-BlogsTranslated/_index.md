@@ -12,23 +12,14 @@ pre: " <b> 3. </b> "
 
 This section will list and introduce the blogs you have translated. For example:
 
-###  [Blog 1 - Getting started with healthcare data lakes: Using microservices](3.1-Blog1/)
-This blog introduces how to start building a data lake in the healthcare sector by applying a microservices architecture. You will learn why data lakes are important for storing and analyzing diverse healthcare data (electronic medical records, lab test data, medical IoT devices…), how microservices help make the system more flexible, scalable, and easier to maintain. The article also guides you through the steps to set up the environment, organize the data processing pipeline, and ensure compliance with security & privacy standards such as HIPAA.
+###  [Blog 1 - Introducing Riskthinking.AI Climate Earth Digital Twin on AWS](3.1-Blog1/)
+This blog introduces Riskthinking.AI's Climate Earth Digital Twin platform built on AWS infrastructure. The platform provides climate risk assessment and modeling capabilities using advanced AI and machine learning. Key topics include how AWS services enable large-scale climate data processing, real-time risk analysis, and decision-making tools for businesses to understand climate impacts on their operations and supply chains.
 
-###  [Blog 2 - ...](3.2-Blog2/)
-This blog introduces how to start building a data lake in the healthcare sector by applying a microservices architecture. You will learn why data lakes are important for storing and analyzing diverse healthcare data (electronic medical records, lab test data, medical IoT devices…), how microservices help make the system more flexible, scalable, and easier to maintain. The article also guides you through the steps to set up the environment, organize the data processing pipeline, and ensure compliance with security & privacy standards such as HIPAA.
+###  [Blog 2 - Elevate User Experience and Security of Application Load Balancer for SAP workloads on AWS](3.2-Blog2/)
+This blog covers best practices for implementing Application Load Balancer (ALB) to enhance both user experience and security for SAP applications running on AWS. Topics include configuring ALB for optimal performance, implementing SSL/TLS termination, setting up health checks, managing traffic distribution across SAP instances, and integrating with AWS security services like WAF and Shield for comprehensive protection.
 
-###  [Blog 3 - ...](3.3-Blog3/)
-This blog introduces how to start building a data lake in the healthcare sector by applying a microservices architecture. You will learn why data lakes are important for storing and analyzing diverse healthcare data (electronic medical records, lab test data, medical IoT devices…), how microservices help make the system more flexible, scalable, and easier to maintain. The article also guides you through the steps to set up the environment, organize the data processing pipeline, and ensure compliance with security & privacy standards such as HIPAA.
-
-###  [Blog 4 - ...](3.4-Blog4/)
-This blog introduces how to start building a data lake in the healthcare sector by applying a microservices architecture. You will learn why data lakes are important for storing and analyzing diverse healthcare data (electronic medical records, lab test data, medical IoT devices…), how microservices help make the system more flexible, scalable, and easier to maintain. The article also guides you through the steps to set up the environment, organize the data processing pipeline, and ensure compliance with security & privacy standards such as HIPAA.
-
-###  [Blog 5 - ...](3.5-Blog5/)
-This blog introduces how to start building a data lake in the healthcare sector by applying a microservices architecture. You will learn why data lakes are important for storing and analyzing diverse healthcare data (electronic medical records, lab test data, medical IoT devices…), how microservices help make the system more flexible, scalable, and easier to maintain. The article also guides you through the steps to set up the environment, organize the data processing pipeline, and ensure compliance with security & privacy standards such as HIPAA.
-
-###  [Blog 6 - ...](3.6-Blog6/)
-This blog introduces how to start building a data lake in the healthcare sector by applying a microservices architecture. You will learn why data lakes are important for storing and analyzing diverse healthcare data (electronic medical records, lab test data, medical IoT devices…), how microservices help make the system more flexible, scalable, and easier to maintain. The article also guides you through the steps to set up the environment, organize the data processing pipeline, and ensure compliance with security & privacy standards such as HIPAA.
+###  [Blog 3 - Node.js 22 runtime now available in AWS Lambda](3.3-Blog3/)
+This blog announces the availability of Node.js 22 runtime in AWS Lambda, covering new features and improvements. Key topics include performance enhancements, new JavaScript language features, updated dependencies, migration guidance from older Node.js versions, and best practices for leveraging Node.js 22 capabilities in serverless applications. The blog also discusses compatibility considerations and deployment strategies.
 
 
 

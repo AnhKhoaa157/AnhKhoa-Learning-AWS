@@ -1,141 +1,106 @@
----
-title: "Blog 3"
-date: "2025-12-04T07:05:17Z"
-weight: 1
+﻿---
+title: "Blog 3 - Node.js 22 runtime in AWS Lambda"
+date: 2024-11-21
+weight: 3
 chapter: false
 pre: " <b> 3.3. </b> "
 ---
 
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
+Node.js 22 runtime hiện đã có sẵn trong AWS Lambda
 
-# Bắt đầu với healthcare data lakes: Sử dụng microservices
+Tác giả: Julian Wood vào ngày 21 THÁNG 11 2024 
+Danh mục:  Amazon CloudFront, Announcements, AWS Cloud Development Kit, AWS Lambda, AWS SDK for JavaScript in Node.js, AWS Serverless Application Model, AWS Systems Manager, Lambda@Edge, Serverless
+
 
-Các data lake có thể giúp các bệnh viện và cơ sở y tế chuyển dữ liệu thành những thông tin chi tiết về doanh nghiệp và duy trì hoạt động kinh doanh liên tục, đồng thời bảo vệ quyền riêng tư của bệnh nhân. **Data lake** là một kho lưu trữ tập trung, được quản lý và bảo mật để lưu trữ tất cả dữ liệu của bạn, cả ở dạng ban đầu và đã xử lý để phân tích. data lake cho phép bạn chia nhỏ các kho chứa dữ liệu và kết hợp các loại phân tích khác nhau để có được thông tin chi tiết và đưa ra các quyết định kinh doanh tốt hơn.
+Bài viết này được viết bởi Julian Wood, Principal Developer Advocate, và Andrea Amorosi, Senior SA Engineer.
+Giới thiệu
+Giờ đây bạn có thể phát triển các hàm AWS Lambda sử dụng Node.js 22 runtime, phiên bản đang ở trạng thái LTS tích cực và sẵn sàng cho việc sử dụng trong production. Node.js 22 bao gồm một số bổ sung cho ngôn ngữ, bao gồm require() các ES modules, cũng như các thay đổi đối với việc triển khai runtime và thư viện chuẩn. Với bản phát hành này, các nhà phát triển Node.js có thể tận dụng các tính năng và cải tiến mới này khi tạo các ứng dụng serverless trên Lambda.
 
-Bài đăng trên blog này là một phần của loạt bài lớn hơn về việc bắt đầu cài đặt data lake dành cho lĩnh vực y tế. Trong bài đăng blog cuối cùng của tôi trong loạt bài, *“Bắt đầu với data lake dành cho lĩnh vực y tế: Đào sâu vào Amazon Cognito”*, tôi tập trung vào các chi tiết cụ thể của việc sử dụng Amazon Cognito và Attribute Based Access Control (ABAC) để xác thực và ủy quyền người dùng trong giải pháp data lake y tế. Trong blog này, tôi trình bày chi tiết cách giải pháp đã phát triển ở cấp độ cơ bản, bao gồm các quyết định thiết kế mà tôi đã đưa ra và các tính năng bổ sung được sử dụng. Bạn có thể truy cập các code samples cho giải pháp tại Git repo này để tham khảo.
+Bạn có thể phát triển các hàm Lambda Node.js 22 bằng cách sử dụng AWS Management Console, AWS Command Line Interface (AWS CLI), AWS SDK for JavaScript, AWS Serverless Application Model (AWS SAM), AWS Cloud Development Kit (AWS CDK), và các công cụ infrastructure as code khác.
+
+Để sử dụng phiên bản mới này, hãy chỉ định giá trị tham số runtime là nodejs22.x khi tạo hoặc cập nhật các hàm hoặc bằng cách sử dụng container base image thích hợp.
+
+Bạn có thể sử dụng Node.js 22 với Powertools for AWS Lambda (TypeScript), một bộ công cụ phát triển để triển khai các best practices serverless và tăng tốc độ phát triển. Powertools for AWS Lambda bao gồm các thư viện để hỗ trợ các tác vụ phổ biến như observability, tích hợp AWS Systems Manager Parameter Store, idempotency, batch processing, và nhiều hơn nữa. Bạn cũng có thể sử dụng Node.js 22 với Lambda@Edge để tùy chỉnh nội dung độ trễ thấp được phân phối thông qua Amazon CloudFront.
+
+Bài viết blog này làm nổi bật các thay đổi quan trọng đối với Node.js runtime, các cập nhật ngôn ngữ Node.js đáng chú ý, và cách bạn có thể sử dụng Node.js 22 runtime mới trong các ứng dụng serverless của mình.
+
+Cập nhật ngôn ngữ Node.js 22
+Node.js 22 giới thiệu một số cập nhật và tính năng ngôn ngữ nhằm nâng cao năng suất của nhà phát triển và cải thiện hiệu suất ứng dụng.
+Bản phát hành này thêm hỗ trợ cho việc tải ECMAScript modules (ESM) bằng cách sử dụng require(). Bạn có thể kích hoạt tính năng này bằng cách sử dụng cờ --experimental-require-module thông qua việc cấu hình biến môi trường NODE_OPTIONS. Hỗ trợ require() cho các đồ thị ESM đồng bộ tạo cầu nối giữa CommonJS và ESM, cung cấp tính linh hoạt hơn trong việc tải module. Điều quan trọng cần lưu ý là tính năng này hiện đang ở giai đoạn thử nghiệm và có thể thay đổi trong các bản phát hành tương lai.
+Hỗ trợ WebSocket trước đây có sẵn đằng sau cờ --experimental-websocket giờ đây được kích hoạt mặc định trong Node.js 22. Điều này mang lại triển khai WebSocket client tương thích với trình duyệt cho Node.js mà không cần phụ thuộc bên ngoài. Hỗ trợ native đơn giản hóa việc xây dựng các ứng dụng thời gian thực và nâng cao trải nghiệm WebSocket tổng thể trong môi trường Node.js.
+Runtime mới cũng bao gồm các cải tiến hiệu suất đối với việc tạo AbortSignal. Điều này làm cho các hoạt động mạng nhanh hơn và hiệu quả hơn cho Fetch API và test runner. Fetch API cũng giờ đây được coi là ổn định trong Node.js 22.
+Đối với người dùng TypeScript, Node.js 22 giới thiệu hỗ trợ thử nghiệm để chuyển đổi cú pháp chỉ dành cho TypeScript thành mã JavaScript. Bằng cách sử dụng cờ --experimental-transform-types, bạn có thể kích hoạt tính năng này để hỗ trợ cú pháp TypeScript như Enum và namespace trực tiếp. Mặc dù bạn có thể kích hoạt tính năng trong Lambda, entrypoint hàm của bạn (tức là index.mjs hoặc app.cjs) hiện không thể được viết bằng TypeScript vì runtime mong đợi một tệp có phần mở rộng JavaScript. Bạn có thể sử dụng TypeScript cho bất kỳ module nào khác được import trong codebase của mình.
+Để có cái nhìn tổng quan chi tiết về các tính năng ngôn ngữ Node.js 22, hãy xem bài viết blog phát hành Node.js 22 và changelog Node.js 22.
+
+Các tính năng thử nghiệm không có sẵn
+Node.js 22 bao gồm một tính năng thử nghiệm để tự động phát hiện cú pháp module (CommonJS hoặc ES Modules). Tính năng này phải được kích hoạt khi Node.js runtime được biên dịch. Vì Node.js 22 runtime do Lambda cung cấp được dành cho khối lượng công việc production, tính năng thử nghiệm này không được kích hoạt trong bản build Lambda và không thể được kích hoạt thông qua cờ execution-time. Để sử dụng tính năng này trong Lambda, bạn cần triển khai Node.js runtime của riêng mình bằng cách sử dụng custom runtime hoặc container image với tính năng phát hiện cú pháp module thử nghiệm được kích hoạt.
+
+Cân nhắc về hiệu suất
+
+Khi ra mắt, các Lambda runtime mới nhận được ít sử dụng hơn so với các runtime đã được thiết lập hiện có. Điều này có thể dẫn đến thời gian cold start dài hơn do giảm cache residency trong các hệ thống con Lambda nội bộ. Thời gian cold start thường cải thiện trong những tuần sau khi ra mắt khi việc sử dụng tăng lên. Do đó, AWS khuyến nghị không rút ra kết luận từ so sánh hiệu suất side-by-side với các Lambda runtime khác cho đến khi hiệu suất đã ổn định. Vì hiệu suất phụ thuộc nhiều vào khối lượng công việc, khách hàng có khối lượng công việc nhạy cảm với hiệu suất nên tiến hành thử nghiệm của riêng họ, thay vì dựa vào các benchmark thử nghiệm chung.
+
+Các builder nên tiếp tục đo lường và kiểm tra hiệu suất hàm và tối ưu hóa mã hàm và cấu hình cho bất kỳ tác động nào. Để tìm hiểu thêm về cách tối ưu hóa hiệu suất Node.js trong Lambda, hãy xem Performance optimization trong Lambda Operator Guide, và bài viết blog Optimizing Node.js dependencies in AWS Lambda.
+
+Migration từ các Node.js runtime trước đó
+
+AWS SDK for JavaScript
+Cho đến Node.js 16, các Node.js runtime của Lambda bao gồm AWS SDK for JavaScript phiên bản 2. Điều này đã được thay thế bởi AWS SDK for JavaScript phiên bản 3, được phát hành vào tháng 12 năm 2022. Bắt đầu từ Node.js 18, và tiếp tục với Node.js 22, các Lambda Node.js runtime bao gồm phiên bản 3. Khi nâng cấp từ Node.js 16 hoặc các runtime trước đó và sử dụng phiên bản 2 đi kèm, bạn phải nâng cấp mã của mình để sử dụng v3 SDK.
+Để có hiệu suất tối ưu, và để có toàn quyền kiểm soát các phụ thuộc mã của bạn, chúng tôi khuyến nghị bundling và minifying AWS SDK trong deployment package của bạn, thay vì sử dụng SDK có trong runtime. Để biết thêm thông tin, hãy xem Optimizing Node.js dependencies in AWS Lambda.
+Amazon Linux 2023
+Node.js 22 runtime dựa trên provided.al2023 runtime, được dựa trên Amazon Linux 2023 minimal container image. Amazon Linux 2023 minimal image sử dụng microdnf làm package manager, được symlink là dnf. Điều này thay thế yum package manager được sử dụng trong Node.js 18 và các image dựa trên AL2 trước đó. Nếu bạn triển khai Lambda function của mình dưới dạng container image, bạn phải cập nhật Dockerfile của mình để sử dụng dnf thay vì yum khi nâng cấp lên Node.js 22 base image từ Node.js 18 hoặc trước đó.
+Ngoài ra AL2 bao gồm curl và gnupg2 dưới dạng phiên bản tối thiểu curl-minimal và gnupg2-minimal.
+Tìm hiểu thêm về provided.al2023 runtime trong bài viết blog Introducing the Amazon Linux 2023 runtime for AWS Lambda và bài viết blog ra mắt Amazon Linux 2023.
+
+Sử dụng Node.js 22 runtime trong AWS Lambda
+
+AWS Management Console
+Để sử dụng Node.js 22 runtime để phát triển các Lambda function của bạn, hãy chỉ định giá trị tham số runtime Node.js 22.x khi tạo hoặc cập nhật một hàm. Phiên bản Node.js 22 runtime hiện có sẵn trong dropdown Runtime trên trang Create function trong AWS Lambda console.
+/
+Creating Node.js function in AWS Management Console
+
+Để cập nhật Lambda function hiện có lên Node.js 22, điều hướng đến hàm trong Lambda console, sau đó chọn Node.js 22.x trong panel Runtime settings. Phiên bản mới của Node.js có sẵn trong dropdown Runtime:
+/
+Changing a function to Node.js 22
+
+AWS Lambda container image
+
+Thay đổi phiên bản Node.js base image bằng cách sửa đổi câu lệnh FROM trong Dockerfile của bạn.
+
+/
+
+AWS Serverless Application Model (AWS SAM)
+
+Trong AWS SAM, đặt thuộc tính Runtime thành nodejs22.x để sử dụng phiên bản này.
+
+/
+
+Khi bạn thêm mã hàm trực tiếp trong template AWS SAM hoặc AWS CloudFormation dưới dạng inline function, nó được coi là CommonJS.
+
+AWS SAM hỗ trợ tạo template này với Node.js 22 cho các ứng dụng serverless mới bằng lệnh sam init. Tham khảo tài liệu AWS SAM.
+
+AWS Cloud Development Kit (AWS CDK)
+
+Trong AWS CDK, đặt thuộc tính runtime thành Runtime.NODEJS_22_X để sử dụng phiên bản này.
+
+/
+
+Kết luận
+
+Lambda hiện hỗ trợ Node.js 22 như một managed language runtime. Bản phát hành này sử dụng Amazon Linux 2023 OS cũng như các cải tiến khác được chi tiết trong bài viết blog này.
+Bạn có thể xây dựng và triển khai các hàm sử dụng Node.js 22 bằng cách sử dụng AWS Management Console, AWS CLI, AWS SDK, AWS SAM, AWS CDK, hoặc công cụ infrastructure as code mà bạn lựa chọn. Bạn cũng có thể sử dụng Node.js 22 container base image nếu bạn thích xây dựng và triển khai các hàm của mình bằng container image.
+Node.js 22 runtime giúp các nhà phát triển xây dựng các ứng dụng serverless hiệu quả, mạnh mẽ và có thể mở rộng hơn. Đọc về Node.js programming model trong tài liệu Lambda để tìm hiểu thêm về việc viết các hàm trong Node.js 22. Hãy thử Node.js runtime trong Lambda ngay hôm nay.
+Để có thêm tài nguyên học tập serverless, hãy truy cập Serverless Land.
+
+---
+
+## Về tác giả
+
+**Julian Wood** - Principal Developer Advocate cho Serverless tại AWS, giúp các nhà phát triển xây dựng và tối ưu hóa các ứng dụng serverless. Ông đam mê công nghệ serverless và chia sẻ các phương pháp hay nhất thông qua blog, workshop và tương tác cộng đồng.
+
+**Andrea Amorosi** - Senior Solutions Architect tại AWS, chuyên về kiến trúc serverless và công cụ phát triển. Ông giúp khách hàng thiết kế và xây dựng các ứng dụng có thể mở rộng, hướng sự kiện bằng AWS Lambda và các công nghệ serverless khác.
 
 ---
 
-## Hướng dẫn kiến trúc
-
-Thay đổi chính kể từ lần trình bày cuối cùng của kiến trúc tổng thể là việc tách dịch vụ đơn lẻ thành một tập hợp các dịch vụ nhỏ để cải thiện khả năng bảo trì và tính linh hoạt. Việc tích hợp một lượng lớn dữ liệu y tế khác nhau thường yêu cầu các trình kết nối chuyên biệt cho từng định dạng; bằng cách giữ chúng được đóng gói riêng biệt với microservices, chúng ta có thể thêm, xóa và sửa đổi từng trình kết nối mà không ảnh hưởng đến những kết nối khác. Các microservices được kết nối rời thông qua tin nhắn publish/subscribe tập trung trong cái mà tôi gọi là “pub/sub hub”.
-
-Giải pháp này đại diện cho những gì tôi sẽ coi là một lần lặp nước rút hợp lý khác từ last post của tôi. Phạm vi vẫn được giới hạn trong việc nhập và phân tích cú pháp đơn giản của các **HL7v2 messages** được định dạng theo **Quy tắc mã hóa 7 (ER7)** thông qua giao diện REST.
-
-**Kiến trúc giải pháp bây giờ như sau:**
-
-> *Hình 1. Kiến trúc tổng thể; những ô màu thể hiện những dịch vụ riêng biệt.*
-
----
-
-Mặc dù thuật ngữ *microservices* có một số sự mơ hồ cố hữu, một số đặc điểm là chung:  
-- Chúng nhỏ, tự chủ, kết hợp rời rạc  
-- Có thể tái sử dụng, giao tiếp thông qua giao diện được xác định rõ  
-- Chuyên biệt để giải quyết một việc  
-- Thường được triển khai trong **event-driven architecture**
-
-Khi xác định vị trí tạo ranh giới giữa các microservices, cần cân nhắc:  
-- **Nội tại**: công nghệ được sử dụng, hiệu suất, độ tin cậy, khả năng mở rộng  
-- **Bên ngoài**: chức năng phụ thuộc, tần suất thay đổi, khả năng tái sử dụng  
-- **Con người**: quyền sở hữu nhóm, quản lý *cognitive load*
-
----
-
-## Lựa chọn công nghệ và phạm vi giao tiếp
-
-| Phạm vi giao tiếp                        | Các công nghệ / mô hình cần xem xét                                                        |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------ |
-| Trong một microservice                   | Amazon Simple Queue Service (Amazon SQS), AWS Step Functions                               |
-| Giữa các microservices trong một dịch vụ | AWS CloudFormation cross-stack references, Amazon Simple Notification Service (Amazon SNS) |
-| Giữa các dịch vụ                         | Amazon EventBridge, AWS Cloud Map, Amazon API Gateway                                      |
-
----
-
-## The pub/sub hub
-
-Việc sử dụng kiến trúc **hub-and-spoke** (hay message broker) hoạt động tốt với một số lượng nhỏ các microservices liên quan chặt chẽ.  
-- Mỗi microservice chỉ phụ thuộc vào *hub*  
-- Kết nối giữa các microservice chỉ giới hạn ở nội dung của message được xuất  
-- Giảm số lượng synchronous calls vì pub/sub là *push* không đồng bộ một chiều
-
-Nhược điểm: cần **phối hợp và giám sát** để tránh microservice xử lý nhầm message.
-
----
-
-## Core microservice
-
-Cung cấp dữ liệu nền tảng và lớp truyền thông, gồm:  
-- **Amazon S3** bucket cho dữ liệu  
-- **Amazon DynamoDB** cho danh mục dữ liệu  
-- **AWS Lambda** để ghi message vào data lake và danh mục  
-- **Amazon SNS** topic làm *hub*  
-- **Amazon S3** bucket cho artifacts như mã Lambda
-
-> Chỉ cho phép truy cập ghi gián tiếp vào data lake qua hàm Lambda → đảm bảo nhất quán.
-
----
-
-## Front door microservice
-
-- Cung cấp API Gateway để tương tác REST bên ngoài  
-- Xác thực & ủy quyền dựa trên **OIDC** thông qua **Amazon Cognito**  
-- Cơ chế *deduplication* tự quản lý bằng DynamoDB thay vì SNS FIFO vì:
-  1. SNS deduplication TTL chỉ 5 phút
-  2. SNS FIFO yêu cầu SQS FIFO
-  3. Chủ động báo cho sender biết message là bản sao
-
----
-
-## Staging ER7 microservice
-
-- Lambda “trigger” đăng ký với pub/sub hub, lọc message theo attribute  
-- Step Functions Express Workflow để chuyển ER7 → JSON  
-- Hai Lambda:
-  1. Sửa format ER7 (newline, carriage return)
-  2. Parsing logic  
-- Kết quả hoặc lỗi được đẩy lại vào pub/sub hub
-
----
-
-## Tính năng mới trong giải pháp
-
-### 1. AWS CloudFormation cross-stack references
-Ví dụ *outputs* trong core microservice:
-```yaml
-Outputs:
-  Bucket:
-    Value: !Ref Bucket
-    Export:
-      Name: !Sub ${AWS::StackName}-Bucket
-  ArtifactBucket:
-    Value: !Ref ArtifactBucket
-    Export:
-      Name: !Sub ${AWS::StackName}-ArtifactBucket
-  Topic:
-    Value: !Ref Topic
-    Export:
-      Name: !Sub ${AWS::StackName}-Topic
-  Catalog:
-    Value: !Ref Catalog
-    Export:
-      Name: !Sub ${AWS::StackName}-Catalog
-  CatalogArn:
-    Value: !GetAtt Catalog.Arn
-    Export:
-      Name: !Sub ${AWS::StackName}-CatalogArn
-
-
-
-
-
-
-
-
-
-
-
-
+**Tags**: serverless, Node.js, AWS Lambda, runtime, Amazon Linux 2023
 
 

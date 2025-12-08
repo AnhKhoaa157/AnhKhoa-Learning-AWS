@@ -21,27 +21,71 @@ pre: " <b> 4. </b> "
 > * Outcomes or value gained (lessons learned, new skills, contribution to the team/project)
 > * This listing helps demonstrate your actual participation as well as the soft skills and experience you have gained from each event.
 
-During my internship, I participated in two events. Each one was a memorable experience that provided new, interesting, and useful knowledge, along with gifts and wonderful moments.
-
-### [Event 1](4.1-Event1/)  
-&emsp;**Event Name:** GenAI-powered App-DB Modernization workshop  
-
-&emsp;**Date & Time:** 09:00, August 13, 2025  
-
-&emsp;**Location:** 26th Floor, Bitexco Tower, 02 Hai Trieu Street, Saigon Ward, Ho Chi Minh City  
-
-&emsp;**Role:** Attendee  
+During my FCJ Bootcamp journey, I participated in three AWS workshops focused on AI/ML, DevOps, and Security. Each event provided hands-on experience with cutting-edge AWS services and best practices.
 
 ---
 
-### [Event 2](4.2-Event2/)  
-&emsp;**Event Name:** GenAI-powered App-DB Modernization workshop  
+### [Event 1 - AI/ML/GenAI on AWS Workshop](4.1-Event1/)  
 
-&emsp;**Date & Time:** 09:00, August 13, 2025  
+**📅 Date & Time:** Saturday, November 15, 2025, 8:30 AM – 12:00 PM  
 
-&emsp;**Location:** 26th Floor, Bitexco Tower, 02 Hai Trieu Street, Saigon Ward, Ho Chi Minh City  
+**📍 Location:** AWS Vietnam Office  
 
-&emsp;**Role:** Attendee  
+**👤 Role:** Attendee  
+
+**📝 Description:** Hands-on workshop covering Amazon SageMaker for traditional ML workflows and Amazon Bedrock for generative AI applications, including RAG architecture, prompt engineering, and Bedrock Agents.
+
+**✨ Key Highlights:**
+- Amazon SageMaker overview: data preparation, model training, deployment, and MLOps
+- SageMaker Studio walkthrough demonstration
+- Generative AI with Amazon Bedrock: foundation models comparison and selection
+- Prompt engineering techniques: Chain-of-Thought reasoning and Few-shot learning
+- Retrieval-Augmented Generation (RAG) architecture and knowledge base integration
+- Bedrock Agents for multi-step workflows and tool integrations
+- Guardrails for safety and content filtering
+- Live demo: Building a generative AI chatbot using Bedrock
+
+---
+
+### [Event 2 - DevOps on AWS Workshop](4.2-Event2/)  
+
+**📅 Date & Time:** Monday, November 17, 2025, 8:30 AM – 5:00 PM  
+
+**📍 Location:** AWS Vietnam Office  
+
+**👤 Role:** Attendee  
+
+**📝 Description:** Comprehensive full-day workshop covering AWS DevOps services including CI/CD pipelines with CodePipeline/CodeBuild/CodeDeploy, Infrastructure as Code with CloudFormation and CDK, container services (ECS, EKS, App Runner), and monitoring & observability with CloudWatch and X-Ray.
+
+**✨ Key Highlights:**
+- DevOps culture, principles, and DORA metrics (MTTR, deployment frequency)
+- CI/CD pipeline: CodeCommit, CodeBuild, CodeDeploy with Blue/Green, Canary, and Rolling updates
+- Infrastructure as Code: CloudFormation templates and AWS CDK comparison
+- Container services: Docker fundamentals, ECR, ECS, EKS, and App Runner
+- Monitoring & observability: CloudWatch metrics/logs/alarms and AWS X-Ray distributed tracing
+- DevOps best practices: feature flags, automated testing, incident management
+- Case studies: Startup and enterprise DevOps transformations
+- Career pathways and AWS certification roadmap
+
+---
+
+### [Event 3 - AWS Well-Architected Security Pillar Workshop](4.3-Event3/)  
+
+**📅 Date & Time:** Saturday, November 29, 2025, 8:30 AM – 12:00 PM  
+
+**📍 Location:** AWS Vietnam Office  
+
+**👤 Role:** Attendee  
+
+**📝 Description:** Morning workshop providing a comprehensive deep-dive into the AWS Well-Architected Security Pillar, covering all five security domains: Identity & Access Management, Detection, Infrastructure Protection, Data Protection, and Incident Response.
+
+**✨ Key Highlights:**
+- Security foundation: Least Privilege, Zero Trust, Defense in Depth, Shared Responsibility Model
+- IAM: Users, Roles, Policies, IAM Identity Center, SCP, Permission Boundaries
+- Detection: CloudTrail, GuardDuty, Security Hub, VPC Flow Logs, EventBridge automation
+- Infrastructure Protection: VPC segmentation, Security Groups vs NACLs, WAF + Shield + Network Firewall
+- Data Protection: KMS, encryption at-rest & in-transit, Secrets Manager, Parameter Store
+- Incident Response: IR playbooks for compromised IAM key, S3 public exposure, EC2 malware detection, auto-response with Lambda/Step Functions  
 
 
 

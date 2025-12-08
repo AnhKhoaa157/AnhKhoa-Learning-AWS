@@ -1,147 +1,10 @@
----
-title: "Blog 2"
-date: "2025-12-04T07:05:17Z"
-weight: 1
+﻿---
+title: "Blog 2 - ALB for SAP workloads on AWS"
+date: 2025-01-07
+weight: 2
 chapter: false
 pre: " <b> 3.2. </b> "
 ---
-# Viết prompt chính xác với Stability AI Image Services trên Amazon Bedrock
 
-Thông tin nhanh:
-
-- Tác giả: Suleman Patel, Isha Dua, Fabio Branco, Maxfield Hulker  
-- Ngày đăng: 18 Sep 2025  
-- Chủ đề: Amazon Bedrock, Generative AI, Stability AI Image Services
-
----
-
-## Mục lục
-
-1. Tóm tắt nhanh
-2. Tổng quan giải pháp
-3. Điều kiện tiên quyết
-4. Cấu trúc prompt để tối đa kiểm soát  
-	4.1. Chọn định dạng prompt phù hợp  
-	4.2. Xây prompt theo mô-đun (modular)  
-	4.3. Dùng negative prompt để tinh lọc  
-	4.4. Dùng trọng số (weighting) để nhấn/giảm yếu tố
-5. Hướng dẫn phong cách (stylistic guidance)  
-	5.1. Trộn nhãn phong cách (style tag layering)  
-	5.2. Gọi tên phong cách tham chiếu  
-	5.3. Ảnh tham chiếu (image-to-image)  
-	5.4. Điều khiển ánh sáng (lighting)  
-	5.5. Posing và framing  
-	5.6. Ví dụ tổng hợp
-6. Thực hành và khắc phục sự cố
-7. Kết luận
-8. Tài nguyên liên quan
-
----
-
-## 1. Tóm tắt nhanh
-
-Amazon Bedrock hiện hỗ trợ Stability AI Image Services (một tập API cho tạo/sửa ảnh dựa trên các dòng Stable Diffusion/Stable Image), cho phép kiểm soát chi tiết quá trình tạo ảnh: inpainting, style transfer, recolor, xoá phông, xoá vật thể, style guide, v.v. Bài viết tập trung vào kỹ thuật viết prompt để đạt đầu ra chính xác, nhất quán cho mục đích chuyên nghiệp (marketing, brand guideline, product shot). Trọng tâm là cách cấu trúc prompt, kỹ thuật nâng cao (negative prompt, weighting), hướng dẫn phong cách (style tags, tham chiếu nghệ sĩ, ảnh tham chiếu), và thực hành/best practices.
-
-## 2. Tổng quan giải pháp
-
-- Stability AI Image Services được cung cấp qua Amazon Bedrock dưới dạng API.  
-- Mục tiêu: chuyển ý tưởng thị giác thành tài sản hình ảnh dùng được (production-ready) bằng prompt rõ ràng, có cấu trúc và có trọng số.  
-- Mã mẫu: GitHub stabilityai-sample-notebooks (AWS Samples).
-
-## 3. Điều kiện tiên quyết
-
-1. Tài khoản AWS và thông tin xác thực truy cập lập trình.  
-2. Gán quyền Amazon Bedrock cho IAM user/role.  
-3. Yêu cầu quyền truy cập các mô hình trên Bedrock.  
-4. Tham khảo “Getting started with the API” trong tài liệu Bedrock.
-
-## 4. Cấu trúc prompt để tối đa kiểm soát
-
-### 4.1 Chọn định dạng prompt phù hợp
-
-- Ngôn ngữ tự nhiên: dễ đọc, linh hoạt; phù hợp khám phá/đối thoại.  
-- Dạng “tag-based”: chính xác, ngắn gọn, thuận tiện kiểm soát cấu trúc.  
-- Dạng lai (hybrid): kết hợp cả hai và cho phép thêm trọng số/nhấn mạnh.
-
-Gợi ý: Stable Diffusion 3.5 phản hồi tốt với prompt ngôn ngữ tự nhiên; UI kỹ thuật thường dùng tag-based; hybrid cho cân bằng giữa rõ ràng và kiểm soát.
-
-### 4.2 Xây prompt theo mô-đun (modular)
-
-Chia prompt thành các khối riêng để tránh mâu thuẫn, dễ tinh chỉnh và debug:
-
-- Prefix: định giọng điệu/ý định (ví dụ: “fashion editorial portrait of”).  
-- Subject: chủ thể, đặc điểm bề mặt (màu da, tóc, chất liệu…).  
-- Modifiers: trang phục/phụ kiện/chất liệu.  
-- Action/Pose: tư thế, chuyển động, góc nhìn.  
-- Environment: bối cảnh, ánh sáng, không khí.  
-- Style: mỹ học, mood (ví dụ: chiaroscuro, abstract).  
-- Camera/Lighting: tiêu cự, setup đèn, DOF.
-
-Lưu ý: thứ tự mô-đun ảnh hưởng trọng số thị giác; đặt “style” sớm có thể làm phong cách chi phối mạnh hơn.
-
-### 4.3 Negative prompt để tinh lọc
-
-Nêu rõ “không muốn” xuất hiện để giảm artifact và tăng độ chuyên nghiệp (ví dụ: “no watermark, no weird hands, no cartoon filters”).  
-Tham khảo thêm các token thường dùng cho “low quality/noise”, “anatomy issues”, “style clashes”, “technical errors”, “general cleanup”.
-
-### 4.4 Trọng số (weighting) để nhấn/giảm yếu tố
-
-Sử dụng cú pháp (<term>:<weight>) hoặc ((<term>)) để tăng/giảm mức ảnh hưởng:  
-- 0.0–1.0: giảm nhấn (de-emphasize).  
-- 1.1–2.0: tăng nhấn (emphasize).  
-Ví dụ: (character:1.8), (background:1.1).  
-Có thể dùng trong negative prompt để điều chỉnh độ tránh (ví dụ: (blurry:0.2)).
-
-## 5. Hướng dẫn phong cách (stylistic guidance)
-
-### 5.1 Style tag layering (trộn nhãn phong cách)
-
-Pha trộn các nhãn thẩm mỹ quen thuộc (editorial, analog film, anime, cyberpunk, brutalist…) theo bản sắc thương hiệu. Bảng gợi ý: Retro/Y2K, Clean modern, Bold streetwear, Hyperreal surrealism…
-
-### 5.2 Gọi tên phong cách tham chiếu
-
-Có thể “gọi” phong cách của một nghệ sĩ/genre như một tín hiệu thẩm mỹ, kết hợp với phrasing riêng và weighting để dẫn dắt chất liệu, ánh sáng, bố cục, tông màu.
-
-### 5.3 Dùng ảnh tham chiếu (image-to-image)
-
-Sử dụng ảnh tham chiếu để khóa pose/màu/bố cục. Các workflow hỗ trợ: Structure, Sketch, Style. Công cụ như ControlNet, IP-Adapter, CLIPlike captioning tăng kiểm soát. Ví dụ quy trình:  
-1) Chọn ảnh editorial chất lượng cao.  
-2) Dùng ControlNet (depth/canny/seg) để khóa pose/biên dạng.  
-3) Thêm prompt để định phong cách và chi tiết.
-
-### 5.4 Điều khiển ánh sáng (lighting)
-
-Ánh sáng quyết định mood, chiều sâu, ngôn ngữ nhiếp ảnh. Gợi ý: High-contrast studio, Soft editorial, Colored gel, Natural bounce… chọn theo use case (beauty, streetwear, outdoor…).
-
-### 5.5 Posing và framing
-
-Chèn cues về tư thế/góc máy để tránh cứng, tăng tự nhiên: “looking off camera”, “hands in motion”, “seated with body turned”, “shot from low angle”...
-
-### 5.6 Ví dụ tổng hợp
-
-Ghép các thành phần: mô tả chủ thể, pose, môi trường, ánh sáng, tiêu cự, mục đích chiến dịch; kèm negative prompt để làm sạch artifact.
-
-## 6. Thực hành và khắc phục sự cố (best practices & troubleshooting)
-
-- Ghi log prompt; thay đổi một biến mỗi lần; lưu seed/base images; so sánh dạng grid.  
-- Khi “style random”: làm rõ thuật ngữ, thêm weight, bỏ xung đột.  
-- Khi “méo khuôn mặt”: thêm cues chân dung/ánh sáng; điều chỉnh pose.  
-- Khi “quá tối”: xác định rõ nguồn sáng/hướng sáng.  
-- Khi “lặp lại pose”: thay seed/đổi góc máy/hành động.  
-- Khi “thiếu thực”: bổ sung negative như “cartoon, digital texture, distorted”.
-
-## 7. Kết luận
-
-Kỹ thuật prompting nâng cao biến ý tưởng thành ảnh chất lượng chuyên nghiệp. Stability AI Image Services trên Amazon Bedrock cung cấp các công cụ kiểm soát chi tiết (tạo và chỉnh sửa), hữu ích cho chiến dịch marketing, đảm bảo nhận diện thương hiệu và ảnh sản phẩm. Kết hợp hiểu biết kỹ thuật với ý định sáng tạo giúp đạt độ chính xác và nhất quán cao. Tham khảo thêm models/ví dụ trong Bedrock và GitHub mẫu.
-
-## 8. Tài nguyên liên quan
-
-- Getting started with the API (Amazon Bedrock)  
-- Stability AI’s foundation models trên Amazon SageMaker JumpStart  
-- GitHub: aws-samples/stabilityai-sample-notebooks
-- [Xem bài gốc tại AWS](https://aws.amazon.com/vi/blogs/machine-learning/prompting-for-precision-with-stability-ai-image-services-in-amazon-bedrock/)
-
----
-
-
+Elevate User Experience and Security of Application Load Balancer for SAP workloads on AWSTác giả: Ferry Mulyadi, Mohit Biyani, và Krishnakumar RamadossNgày đăng: 01/07/2025Danh mục:  Elastic Load Balancing, How-To, SAP on AWS, Technical How-to, Thought LeadershipNguồn gốc bài viết gốc: AWS for SAP BlogTổng quanBài viết trình bày cách nâng cao trải nghiệm người dùng và bảo mật khi sử dụng Application Load Balancer (ALB) cho các khối lượng công việc SAP trên AWS. Nhiều khách hàng chạy SAP trên AWS và xây dựng các phần mở rộng ứng dụng cloud-native để duy trì lõi ERP sạch và tăng tốc đổi mới.Một điểm trọng tâm là principal propagation, tức việc mang danh tính đã xác thực từ ALB đến hệ thống SAP mà không cần xác thực lại, cho phép trải nghiệm Single Sign-On (SSO).Bài viết giải thích cách mTLS (Mutual Transport Layer Security) và chứng chỉ X.509 hỗ trợ principal propagation, bao gồm hai chế độ mTLS trên ALB: passthrough (chuyển toàn bộ chuỗi chứng chỉ đến backend) và verify (ALB xác thực client trước, giảm tải cho backend).Tác giả khuyến nghị sử dụng mTLS verify mode cho SAP trên AWS, vì nó đảm bảo bảo mật và hiệu quả xử lý.Kiến trúc tổng thể liên quan đến ALB, SAP Web Dispatcher, và hệ thống SAP (S/4HANA, ABAP Stack), kết hợp AWS Direct Connect hoặc internet, giúp xác thực đầu cuối giữa client và server một cách an toàn. Hướng dẫn chi tiết cấu hình trust store với Amazon S3 và quản lý CRL cũng được trình bày.Principal Propagation là gì?Principal propagation cho phép người dùng đăng nhập một lần để truy cập nhiều hệ thống một cách an toàn, loại bỏ nhu cầu đăng nhập nhiều lần. Nó đảm bảo rằng khi một người dùng được xác thực, ví dụ thông qua chứng chỉ client tại ALB, danh tính đó được nhận diện và tin tưởng một cách nhất quán bởi các hệ thống downstream như SAP. Điều này tránh được nhu cầu các lời nhắc đăng nhập dư thừa và duy trì bối cảnh người dùng an toàn trên toàn cảnh quan. Nó cho phép single sign-on (SSO) bằng cách cho phép danh tính của người dùng được chuyển tiếp đến một hệ thống, đảm bảo các hành động được thực hiện dưới danh tính của người dùng, không phải của người dùng hệ thống, và cải thiện bảo mật bằng cách dựa vào xác thực dựa trên token.Lợi ích Chính của Principal PropagationTrải nghiệm Người dùng Tốt hơn với Single Sign On (SSO): Người dùng chỉ cần xác thực một lần để truy cập nhiều hệ thống và ứng dụng, loại bỏ sự bực bội của các lời nhắc đăng nhập lặp đi lặp lại và duy trì năng suất trên các nền tảng khác nhau.Tăng cường Bảo mật: Bằng cách loại bỏ nhu cầu lưu trữ nhiều thông tin đăng nhập và giảm các điểm tiếp xúc xác thực, principal propagation tăng cường tư thế bảo mật. Nó tạo ra một bối cảnh bảo mật thống nhất duy trì các dấu vết kiểm toán rõ ràng và thực thi các chính sách bảo mật nhất quán trên các hệ thống tích hợp, làm cho việc các kẻ tấn công tiềm năng xâm phạm môi trường trở nên khó khăn hơn.Tuân thủ và Quản trị: Các tổ chức có thể duy trì tuân thủ tốt hơn với các yêu cầu quy định thông qua việc theo dõi hoạt động người dùng toàn diện và trách nhiệm giải trình. Principal propagation đảm bảo rằng các hành động của người dùng được ghi nhận và ghi log đúng cách trên tất cả các hệ thống, đơn giản hóa các quy trình kiểm toán và báo cáo quy định.Hiệu quả Quản trị: Các nhóm IT có thể quản lý quyền truy cập người dùng, quyền hạn và thông tin đăng nhập từ một điểm kiểm soát duy nhất, đơn giản hóa quản lý vòng đời người dùng và hợp lý hóa các tác vụ quản trị thường xuyên.Tích hợp Hệ thống: Principal propagation phục vụ như một cây cầu giữa các hệ thống và nền tảng khác nhau, duy trì bối cảnh người dùng và ủy quyền nhất quán qua các ranh giới hệ thống. Sự tích hợp này đặc biệt có giá trị trong các môi trường hybrid hiện đại nơi các ứng dụng trải rộng trên nhiều nền tảng và dịch vụ đám mây.Giảm Chi phí: Các tổ chức hưởng lợi từ việc giảm các ticket help desk, triển khai bảo mật đơn giản hóa, và sử dụng tài nguyên hiệu quả hơn thông qua quản lý tập trung.mTLS Authentication có thể hỗ trợ Principal Propagation như thế nào?Mutual Transport Layer Security (mTLS) Authentication thiết lập một kết nối mã hóa an toàn, hai chiều giữa client và server. Không giống như TLS tiêu chuẩn, nơi chỉ server cung cấp chứng chỉ, mTLS yêu cầu cả hai bên đều trình bày chứng chỉ số. Với cơ chế này, người dùng sẽ trải nghiệm xác thực liền mạch với tư thế bảo mật tốt hơn giữa client và server./Hình 1. Luồng xác thực mTLS giữa client và serverTrong kịch bản xác thực mTLS, bạn sẽ cần cung cấp chứng chỉ client và server sử dụng Certificate Authority (CA) của bạn, để đảm bảo cả hai đều được tin tưởng. Quá trình xác thực hoạt động như sau:Client yêu cầu kết nối đến server.Server trình bày chứng chỉ của nó.Client xác minh chứng chỉ của server.Client trình bày chứng chỉ của nó để server xác minh và xác thực.Kết nối an toàn được thiết lập giữa client và server.mTLS Client Authentication với Application Load BalancerALB hỗ trợ xác thực mTLS. Nó cung cấp hai chế độ: passthrough và verify mode.Để đảm bảo luồng dữ liệu an toàn, tất cả các chứng chỉ SSL (Secure Socket Layer) hoặc TLS được sử dụng trên toàn bộ cơ sở hạ tầng, bao gồm những chứng chỉ tại ALB, SAP Web Dispatcher, và các hệ thống S/4HANA nên bắt nguồn từ một root certificate authority đáng tin cậy duy nhất để dễ dàng triển khai và bảo trì các chứng chỉ này.mTLS Passthrough ModeTrong chế độ mTLS passthrough, ALB chuyển tiếp toàn bộ chuỗi chứng chỉ của client đến các target backend. Điều này được thực hiện thông qua HTTP header có tên X-Amzn-Mtls-Clientcert. Chuỗi, bao gồm leaf certificate, được gửi ở định dạng PEM được mã hóa URL với +, =, và / là các ký tự an toàn. Dưới đây là các cân nhắc khi sử dụng mTLS Passthrough Mode:ALB không thêm header nếu chứng chỉ client không có; backend phải xử lý điều này.Các target backend chịu trách nhiệm về xác thực client và xử lý lỗi.Đối với HTTPS listeners, ALB kết thúc TLS client-ALB và khởi tạo TLS ALB-backend mới sử dụng chứng chỉ được cài đặt trên target.Việc kết thúc TLS của ALB cho phép sử dụng bất kỳ thuật toán routing ALB nào cho load balancing.mTLS Verify ModeĐể kích hoạt chế độ mTLS verify, tạo một trust store chứa bundle chứng chỉ CA. Điều này có thể được thực hiện bằng cách sử dụng AWS Certificate Manager (ACM), AWS Private CA, hoặc bằng cách import chứng chỉ của riêng bạn. Quản lý các chứng chỉ bị thu hồi sử dụng Certificate Revocation Lists (CRLs) được lưu trữ trong Amazon S3 và liên kết với trust store.ALB xử lý việc xác minh chứng chỉ client đối với trust store, hiệu quả chặn các yêu cầu không được ủy quyền. Cách tiếp cận này giảm tải xử lý mTLS từ các target backend, cải thiện hiệu quả tổng thể của hệ thống. ALB import CRLs từ S3 và thực hiện kiểm tra mà không cần lấy S3 lặp đi lặp lại, giảm thiểu độ trễ.Ngoài xác thực client, ALB truyền metadata chứng chỉ client thông qua HTTP Headers (ví dụ: X-Amzn-Mtls-Clientcert-Leaf) đến SAP Web Dispatcher backend thông qua HTTP headers. Điều này cho phép triển khai logic bổ sung trên các target backend dựa trên chi tiết chứng chỉ, để đáp ứng yêu cầu cho SAP Servers bảo tồn thông tin "Host Header" gốc.Điều này cho phép server xử lý metadata chứng chỉ client một cách nhất quán, ngay cả khi bắt nguồn từ các nguồn không phải SAP như load balancer AWS kết thúc kết nối SSL. Trong trường hợp bạn đang triển khai mã hóa end-to-end thông qua ALB – SAP Web Dispatcher – SAP Servers, bạn phải cấu hình các tham số profile SAP Web Dispatcher như icm/HTTPS/client_certificate_header_name. Để biết thêm chi tiết, bạn có thể tham khảo link này.Khuyến nghịChúng tôi khuyến nghị triển khai chế độ mTLS verify cho triển khai khối lượng công việc SAP trên AWS, vì nó cho phép bạn giảm tải việc xác minh và xác thực càng sớm càng tốt (tại lớp ALB). Chế độ mTLS verify cũng được hỗ trợ cho RISE with SAP on AWS.Mô hình Kiến trúc cho chế độ mTLS verify/Hình 2. Luồng dữ liệu xác thực mTLS verify cho khối lượng công việc SAP trên AWSKiến trúc trên mô tả cách xác thực mTLS được triển khai trong on-premise và AWS VPC được kết nối thông qua AWS Direct Connect. Xác thực mTLS cũng có thể được triển khai cho người dùng từ xa với kết nối internet.Luồng Kiến trúc1.Người dùng sẽ có chứng chỉ X.509 được cài đặt trong thiết bị client của họ (laptop và/hoặc mobile).2.Thiết bị client sẽ khởi tạo kết nối đến ALB và chia sẻ chứng chỉ tương ứng để cả hai có thể xác minh lẫn nhau. Việc xác minh ALB sẽ tận dụng Amazon S3 làm trust store.3.Khi đã được xác minh, ALB sẽ chuyển tiếp kết nối đến SAP Web Dispatcher để xác minh và xác thực.4.SAP Web Dispatcher sau đó sẽ chuyển tiếp kết nối đến SAP Instances (tức là S/4HANA, ABAP Stacks, v.v.) để xác minh và xác thực.Link tham khảo SAP Web Dispatcher parameter: SAP Help PortalCác Bước Triển khaiBạn có thể tìm thấy các bước triển khai chi tiết tại đây. Các bước cấu hình này thiết lập nền tảng cho xác thực client-server an toàn:Cấu hình trust store của bạn sử dụng Amazon S3:Tạo một bucket Amazon S3 để lưu trữ Certificate Authority (CA) riêng và các chứng chỉ trung gian của bạn.Cấu hình trust store của bạn thông qua EC2 console, liên kết nó với S3 bucket của bạn.Triển khai Certificate Revocation Lists (CRLs) để kiểm soát bảo mật bổ sung đối với các kết nối mạng.Cấu hình Application Load Balancer (ALB) của bạn:Yêu cầu SSL Public Certificate cho ALB sử dụng AWS Certificate Manager.Tạo HTTPS Listener để kích hoạt mTLS bằng cách liên kết nó với SSL Public Certificate đã yêu cầu.Tạo một Security Group dành riêng cho SAP Web Dispatcher bằng cách cấu hình các quy tắc inbound để chỉ cho phép traffic từ ALB.Tạo một Target Group cho SAP Web Dispatcher và ánh xạ nó đến ALB.Cấu hình SAP Web Dispatcher để target SAP Instances (tức là SAP S/4HANA) làm backend:Import Root và Intermediate Certificate vào SAP WebDispatcher sử dụng lệnh sapgenpse.Tạo SSL Public Certificate (từ cùng private CA) cho SAP Web Dispatcher, sau đó cài đặt nó sử dụng lệnh sapgenpse.Triển khai SAP Parameter icm/HTTPS/client_certificate_header_name = x-amzn-mtls-clientcert, bạn có thể tham khảo tài liệu SAP.Cấu hình SAP S/4HANA để chấp nhận kết nối an toàn:Import Root và Intermediate Certificate vào STRUST Transaction trong SAP S/4HANA.Triển khai SAP Parameter icm/trusted_reverse_proxy với chi tiết của SSL Certificate được gán cho SAP Web Dispatcher, bạn có thể tham khảo tài liệu SAP. Giá cảThông tin chi tiết hơn về giá Application Load Balancer có sẵn tại link này. Cụ thể đối với xác thực mTLS, có một khoản phí bổ sung per-hour per-trust store liên kết với ALB dựa trên kịch bản sử dụng mTLS Verify. Chúng ta có thể giả sử ứng dụng S/4 HANA của bạn nhận trung bình một kết nối mới mỗi giây, mỗi kết nối kéo dài hai phút. Client gửi trung bình năm yêu cầu mỗi giây và tổng số byte được xử lý cho yêu cầu và phản hồi là 300 KB mỗi giây. Bạn đã cấu hình 1 rule trên load balancer để định tuyến yêu cầu client của bạn, và 1 trust store được liên kết cho kịch bản Mutual TLS. Chúng tôi tính toán chi phí Application Load Balancer hàng tháng của bạn sử dụng giá ở US East (Northern Virginia) Region như sau:Kết nối mới (mỗi giây): Mỗi LCU cung cấp 25 kết nối mới mỗi giây (trung bình trong giờ). Vì ứng dụng của bạn nhận một kết nối mới mỗi giây, điều này chuyển đổi thành 0.04 LCUs (một kết nối mỗi giây / 25 kết nối mỗi giây).Kết nối hoạt động (mỗi phút): Mỗi LCU cung cấp 3.000 kết nối hoạt động mỗi phút. Ứng dụng của bạn nhận một kết nối mới mỗi giây, mỗi kết nối kéo dài hai phút. Điều này chuyển đổi thành 120 kết nối hoạt động mỗi phút, hoặc 0.04 LCUs (120 kết nối hoạt động mỗi phút / 3.000 kết nối hoạt động mỗi phút).Byte được xử lý (GBs mỗi giờ): Mỗi LCU cung cấp 1 GB byte được xử lý mỗi giờ. Vì mỗi kết nối client truyền 300 KB dữ liệu mỗi giây, nó chuyển đổi thành 1.08 GB mỗi giờ hoặc 1.08 LCUs (1.08 GB/1 GB).Đánh giá Rule (mỗi giây): Do có 10 rule miễn phí, dimension này sẽ không ảnh hưởng đến giá của bạn.Sử dụng các giá trị này, hóa đơn hàng giờ được tính bằng cách lấy LCUs tối đa được tiêu thụ trên bốn dimension. Trong ví dụ này, dimension byte được xử lý (1.08 LCUs) lớn hơn kết nối mới (0.04 LCUs), kết nối hoạt động (0.04 LCUs), và đánh giá rule (0 LCU) dẫn đến tổng phí $0.00864 mỗi giờ (1.08 LCUs * $0.008 mỗi LCU) hoặc $6.22 mỗi tháng ($0.00864 * 24 giờ * 30 ngày).Thêm phí hàng giờ $0.0225 (ALB hour) và phí giờ 0.0056 (trust store), tổng chi phí Application Load Balancer là:"$0.03674 mỗi giờ ($0.0225 phí ALB + $0.0056 phí trust store + $0.00864 phí LCU)"hoặc"$26.4528 mỗi tháng ($0.03674 * 24 giờ * 30 ngày)"Kết luậnHỗ trợ mTLS của Application Load Balancer cung cấp một nền tảng mạnh mẽ để triển khai principal propagation trong các cảnh quan SAP. Sự tích hợp này cho phép các giải pháp SSO an toàn, có thể mở rộng và có thể bảo trì trong khi tận dụng các dịch vụ được quản lý của AWS.Các điểm chính:Hỗ trợ mTLS của ALB đơn giản hóa việc triển khai principal propagation.Tích hợp với SAP Web Dispatcher đảm bảo ánh xạ đúng thông tin đăng nhập.Dịch vụ được quản lý của AWS giảm overhead vận hành.Tăng cường bảo mật thông qua xác thực dựa trên chứng chỉ.Bằng cách triển khai xác thực mTLS sử dụng ALB, các tổ chức có thể cải thiện tư thế bảo mật ứng dụng SAP của họ trong khi cung cấp trải nghiệm người dùng tốt hơn cho nhân viên của họ. Giải pháp này đặc biệt phù hợp cho các doanh nghiệp chạy khối lượng công việc SAP trên AWS cần duy trì các cơ chế xác thực an toàn và hiệu quả trên cảnh quan ứng dụng của họ. Hãy nhớ luôn tuân theo AWS Well Architected Framework (SAP Lens) chứa các thực hành tốt nhất cho bảo mật và giữ chứng chỉ và trust store của bạn được cập nhật thường xuyên.Đọc thêm về AWS for SAP blogs để lấy cảm hứng về cách bạn có thể tận dụng tối đa khoản đầu tư SAP của mình.Tham gia Thảo luận SAP trên AWSNgoài nhóm tài khoản khách hàng và các kênh AWS Support của bạn, chúng tôi gần đây đã ra mắt re:Post – Một Trải nghiệm Q&A Được Tái tưởng tượng cho Cộng đồng AWS. Nhóm AWS for SAP Solution Architecture của chúng tôi thường xuyên theo dõi chủ đề AWS for SAP để thảo luận và câu hỏi có thể được trả lời để hỗ trợ khách hàng và đối tác của chúng tôi. Nếu câu hỏi của bạn không liên quan đến support, hãy cân nhắc tham gia thảo luận tại re:Post và bổ sung vào cơ sở kiến thức cộng đồng.Lời cảm ơnTôi muốn cảm ơn các thành viên nhóm sau đây vì những đóng góp của họ: Derek Ewell, Sreenath Middhi, Rajendra Narikimelli, Joachim Aumman, Arne Knoeller, và Adam Hill.TAGS: #saponaws, #security, RISE with SAPNguồn: Elevate User Experience and Security of Application Load Balancer for SAP workloads on AWSTác giả Ferry MulyadiFerry Mulyadi là Senior Solutions Architect tại AWS, chuyên về SAP và Enterprise Applications. Với hơn 15 năm kinh nghiệm trong lĩnh vực SAP, Ferry giúp khách hàng thiết kế và triển khai các giải pháp SAP scalable trên AWS.Mohit BiyaniMohit Biyani là Principal Solutions Architect tại AWS, tập trung vào bảo mật và DevOps cho các workload enterprise. Mohit có kinh nghiệm sâu rộng về identity management và secure architectures.Krishnakumar RamadossKrishnakumar Ramadoss là Senior Solutions Architect tại AWS, chuyên về networking và load balancing solutions. Với background mạnh về infrastructure và security, Krishna hỗ trợ khách hàng xây dựng các kiến trúc robust và secure.
 
