@@ -112,6 +112,20 @@ Devteria Game Store is a scalable e-commerce platform for digital game licensing
 
 ---
 
+### 9. Project Documentation
+
+📄 **[Download Detailed Project Plan (DOCX)](/docs/AWS_Project_Plan_Devteria.docx)**
+
+This comprehensive document includes:
+- Detailed technical specifications
+- Architecture diagrams with explanations
+- Step-by-step implementation guide
+- Code samples and configuration examples
+- Testing and deployment strategies
+- Monitoring and maintenance procedures
+
+---
+
 ### Next Steps
 1. Proposal approval
 2. AWS account setup

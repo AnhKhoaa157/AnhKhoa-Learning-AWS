@@ -1,5 +1,5 @@
 ---
-title: "B?n d? xu?t"
+title: "Bản đề xuất"
 date: "2025-12-04T07:05:17Z"
 weight: 2
 chapter: false
@@ -7,130 +7,128 @@ pre: " <b> 2. </b> "
 ---
 
 {{% notice warning %}}
- **Luu �:** C�c th�ng tin du?i d�y ch? nh?m m?c d�ch tham kh?o, vui l�ng **kh�ng sao ch�p nguy�n van** cho b�i b�o c�o c?a b?n k? c? warning n�y.
+ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
 {{% /notice %}}
 
-# N?n t?ng Devteria Game Store
-## Gi?i ph�p E-commerce tr�n AWS Cloud cho ph�n ph?i game s?
+# Nền tảng Devteria Game Store
+## Giải pháp E-commerce trên AWS Cloud cho phân phối game số
 
-### 1. T�m t?t di?u h�nh
-Devteria Game Store l� n?n t?ng thuong m?i di?n t? c� kh? nang m? r?ng d�nh cho vi?c mua v� qu?n l� b?n quy?n game k? thu?t s?. �u?c x�y d?ng tr�n AWS cloud, n?n t?ng cung c?p x�c th?c b?o m?t, qu?n l� t?n kho th?i gian th?c, x? l� don h�ng t? d?ng v� ph�n ph?i n?i dung to�n c?u. H? tr? h�ng ngh�n ngu?i d�ng d?ng th?i v?i d? s?n s�ng cao (99.9% uptime) v� hi?u qu? chi ph� th�ng qua ki?n tr�c serverless.
+### 1. Tóm tắt điều hành
+Devteria Game Store là nền tảng thương mại điện tử có khả năng mở rộng dành cho việc mua và quản lý bản quyền game kỹ thuật số. Được xây dựng trên AWS cloud, nền tảng cung cấp xác thực bảo mật, quản lý tồn kho thời gian thực, xử lý đơn hàng tự động và phân phối nội dung toàn cầu. Hỗ trợ hàng nghìn người dùng đồng thời với độ sẵn sàng cao (99.9% uptime) và hiệu quả chi phí thông qua kiến trúc serverless.
 
-### 2. Tuy�n b? v?n d?
+### 2. Tuyên bố vấn đề
 
-**Th�ch th?c hi?n t?i:**
-- C?a h�ng game truy?n th?ng g?p kh� khan v?i lu?ng truy c?p tang d?t bi?n
-- Quy tr�nh x�c th?c v� thanh to�n ph?c t?p gi?m t? l? chuy?n d?i
-- Qu?n l� t?n kho th? c�ng d?n d?n b�n vu?t s? lu?ng
-- Thi?u ph�n t�ch th?i gian th?c d? dua ra quy?t d?nh
-- Chi ph� co s? h? t?ng cao cho c�ng su?t d?nh
+**Thách thức hiện tại:**
+- Cửa hàng game truyền thống gặp khó khăn với lưu lượng truy cập tăng đột biến
+- Quy trình xác thực và thanh toán phức tạp giảm tỷ lệ chuyển đổi
+- Quản lý tồn kho thủ công dẫn đến bán vượt số lượng
+- Thiếu phân tích thời gian thực để đưa ra quyết định
+- Chi phí cơ sở hạ tầng cao cho công suất đỉnh
 
-**Gi?i ph�p:** Devteria t?n d?ng c�c d?ch v? AWS: CloudFront + S3 (ph�n ph?i n?i dung nhanh), Cognito (x�c th?c an to�n), API Gateway + Lambda (backend serverless), RDS + S3 (luu tr? d�ng tin c?y), SQS + SNS (x? l� b?t d?ng b?), v� CodePipeline (CI/CD t? d?ng).
+**Giải pháp:** Devteria tận dụng các dịch vụ AWS: CloudFront + S3 (phân phối nội dung nhanh), Cognito (xác thực an toàn), API Gateway + Lambda (backend serverless), RDS + S3 (lưu trữ đáng tin cậy), SQS + SNS (xử lý bất đồng bộ), và CodePipeline (CI/CD tự động).
 
-### 3. Ki?n tr�c gi?i ph�p
+### 3. Kiến trúc giải pháp
 
-![Ki?n tr�c Devteria](/images/2-Proposal/proposal.jpg)
+![Kiến trúc Devteria](/images/2-Proposal/proposal.jpg)
 
-**C�c th�nh ph?n ch�nh:**
-- **Frontend**: CloudFront CDN + S3 (?ng d?ng React, b? nh? d?m to�n c?u, t?i <2s)
-- **Backend**: API Gateway + Lambda (logic nghi?p v? t? d?ng m? r?ng) + ALB + EC2 (microservices)
-- **D? li?u**: RDS PostgreSQL (ngu?i d�ng, danh m?c, don h�ng) + S3 (t?p game, t�i s?n) + SQS/SNS (x? l� b?t d?ng b?)
-- **B?o m?t**: Cognito (x�c th?c v?i MFA) + IAM (ki?m so�t truy c?p) + CloudWatch (gi�m s�t)
-- **CI/CD**: GitLab  CodePipeline  CodeBuild  Tri?n khai
+**Các thành phần chính:**
+- **Frontend**: CloudFront CDN + S3 (ứng dụng React, bộ nhớ đệm toàn cầu, tải <2s)
+- **Backend**: API Gateway + Lambda (logic nghiệp vụ tự động mở rộng) + ALB + EC2 (microservices)
+- **Dữ liệu**: RDS PostgreSQL (người dùng, danh mục, đơn hàng) + S3 (tệp game, tài sản) + SQS/SNS (xử lý bất đồng bộ)
+- **Bảo mật**: Cognito (xác thực với MFA) + IAM (kiểm soát truy cập) + CloudWatch (giám sát)
+- **CI/CD**: GitLab  CodePipeline  CodeBuild  Triển khai
 
-**Lu?ng ngu?i d�ng:** Truy c?p site  �ang nh?p (Cognito)  Duy?t game (API/Lambda/RDS)  Th�m v�o gi?  Thanh to�n  T?o b?n quy?n (SQS)  Email (SNS)  T?i xu?ng an to�n (S3)
+**Luồng người dùng:** Truy cập site  Đăng nhập (Cognito)  Duyệt game (API/Lambda/RDS)  Thêm vào giỏ  Thanh toán  Tạo bản quyền (SQS)  Email (SNS)  Tải xuống an toàn (S3)
 
-### 4. D?ch v? AWS
+### 4. Dịch vụ AWS
 
-| D?ch v? | M?c d�ch | C?u h�nh |
+| Dịch vụ | Mục đích | Cấu hình |
 |---------|---------|----------|
 | CloudFront | CDN | 10M request, 50GB transfer |
-| S3 | Luu tr? | 100GB (frontend + t�i s?n) |
-| API Gateway | Qu?n l� API | 1M request/th�ng |
+| S3 | Lưu trữ | 100GB (frontend + tài sản) |
+| API Gateway | Quản lý API | 1M request/tháng |
 | Lambda | Serverless Compute | 5M invocations, 512MB |
 | EC2 | Microservices | 2x t3.medium |
 | RDS | Database | db.t3.small Multi-AZ |
 | ALB | Load Balancer | 1 ALB |
-| Cognito | X�c th?c | 10K ngu?i d�ng |
-| SQS + SNS | Queue + Th�ng b�o | 5M + 100K tin nh?n |
-| CloudWatch | Gi�m s�t | S? li?u + nh?t k� |
+| Cognito | Xác thực | 10K người dùng |
+| SQS + SNS | Queue + Thông báo | 5M + 100K tin nhắn |
+| CloudWatch | Giám sát | Số liệu + nhật ký |
 | CodePipeline | CI/CD | 1 pipeline |
 
-### 5. L? tr�nh tri?n khai (6 th�ng)
+### 5. Lộ trình triển khai (6 tháng)
 
-| Th�ng | M?c quan tr?ng |
+| Tháng | Mốc quan trọng |
 |-------|----------------|
-| **1** | Co s? h? t?ng: Thi?t l?p AWS, VPC, RDS, S3, Cognito |
-| **2-3** | Backend: Lambda APIs (x�c th?c, danh m?c, don h�ng) + API Gateway |
-| **3** | Frontend: ?ng d?ng React/Next.js + t�ch h?p Cognito |
-| **4** | N�ng cao: C?ng thanh to�n + B?ng qu?n tr? + CI/CD |
-| **5** | Ki?m th?: Load tests + Ki?m to�n b?o m?t + T?i uu hi?u su?t |
-| **6** | Ra m?t: Ra m?t th? nghi?m  Ra m?t c�ng khai |
+| **1** | Cơ sở hạ tầng: Thiết lập AWS, VPC, RDS, S3, Cognito |
+| **2-3** | Backend: Lambda APIs (xác thực, danh mục, đơn hàng) + API Gateway |
+| **3** | Frontend: Ứng dụng React/Next.js + tích hợp Cognito |
+| **4** | Nâng cao: Cổng thanh toán + Bảng quản trị + CI/CD |
+| **5** | Kiểm thử: Load tests + Kiểm toán bảo mật + Tối ưu hiệu suất |
+| **6** | Ra mắt: Ra mắt thử nghiệm  Ra mắt công khai |
 
-### 6. U?c t�nh ng�n s�ch
+### 6. Ước tính ngân sách
 
-**Chi ph� h�ng th�ng (10K ngu?i d�ng, 1K don h�ng/th�ng): ~$228**
+**Chi phí hàng tháng (10K người dùng, 1K đơn hàng/tháng): ~$228**
 
-| D?ch v? | Chi ph� |
+| Dịch vụ | Chi phí |
 |---------|---------|
 | CloudFront + S3 + API Gateway + Lambda | $32 |
 | EC2 (2x t3.medium) + RDS (t3.small) | $110 |
 | ALB + Cognito | $50 |
-| SQS + SNS + CloudWatch + Kh�c | $36 |
+| SQS + SNS + CloudWatch + Khác | $36 |
 
-**M? r?ng:** 50K ngu?i d�ng (~$650/th�ng), 100K ngu?i d�ng (~$1,200/th�ng)
+**Mở rộng:** 50K người dùng (~$650/tháng), 100K người dùng (~$1,200/tháng)
 
-**M?t l?n:** Ph�t tri?n ($5K-8K), T�n mi?n ($15/nam), SSL (Mi?n ph� qua ACM)
+**Một lần:** Phát triển ($5K-8K), Tên miền ($15/năm), SSL (Miễn phí qua ACM)
 
-### 7. ��nh gi� r?i ro
+### 7. Đánh giá rủi ro
 
-| R?i ro | Gi?m thi?u |
+| Rủi ro | Giảm thiểu |
 |--------|------------|
-| T?n c�ng DDoS | AWS Shield, CloudFront, gi?i h?n t?c d? |
-| R� r? d? li?u | M� h�a, IAM, ki?m to�n d?nh k? |
-| Gian l?n thanh to�n | 3D Secure, ph�t hi?n gian l?n |
+| Tấn công DDoS | AWS Shield, CloudFront, giới hạn tốc độ |
+| Rò rỉ dữ liệu | Mã hóa, IAM, kiểm toán định kỳ |
+| Gian lận thanh toán | 3D Secure, phát hiện gian lận |
 | Lambda Cold Starts | Provisioned concurrency |
-| Vu?t chi ph� | C?nh b�o ng�n s�ch, gi?i h?n t? d?ng m? r?ng |
+| Vượt chi phí | Cảnh báo ngân sách, giới hạn tự động mở rộng |
 
-**D? ph�ng:** Sao luu t? d?ng RDS, tri?n khai Multi-AZ, rollback CodePipeline, trang b?o tr� tinh
+**Dự phòng:** Sao lưu tự động RDS, triển khai Multi-AZ, rollback CodePipeline, trang bảo trì tĩnh
 
-### 8. K?t qu? k? v?ng
+### 8. Kết quả kỳ vọng
 
-**K? thu?t:**
-- Hi?u su?t: T?i trang <2s to�n c?u
-- Kh? nang m? r?ng: X? l� tang luu lu?ng 10x
-- �? tin c?y: 99.9% uptime
-- B?o m?t: Kh�ng r� r?, s?n s�ng PCI
+**Kỹ thuật:**
+- Hiệu suất: Tải trang <2s toàn cầu
+- Khả năng mở rộng: Xử lý tăng lưu lượng 10x
+- Độ tin cậy: 99.9% uptime
+- Bảo mật: Không rò rỉ, sẵn sàng PCI
 
 **Kinh doanh:**
-- Gi?m 40% t? l? b? gi? h�ng
-- Gi?m 60% th?i gian qu?n l� co s? h? t?ng
-- Tang 25-35% doanh thu t? UX t?t hon
-- Ti?p c?n th? tru?ng to�n c?u qua CDN
+- Giảm 40% tỷ lệ bỏ giỏ hàng
+- Giảm 60% thời gian quản lý cơ sở hạ tầng
+- Tăng 25-35% doanh thu từ UX tốt hơn
+- Tiếp cận thị trường toàn cầu qua CDN
 
-**D�i h?n:** M? r?ng d?n 100K+ ngu?i d�ng, nh�m t�ch luy kinh nghi?m AWS, microservices t�i s? d?ng, ph�t tri?n t�nh nang nhanh
- nang m? r?ng**: X? l� tang luu lu?ng 10x
-- **�? tin c?y**: 99.9% uptime
-- **B?o m?t**: Kh�ng r� r?, s?n s�ng PCI
-
-#### Kinh doanh
-- Gi?m 40% t? l? b? gi? h�ng
-- Gi?m 60% th?i gian qu?n l� co s? h? t?ng
-- Tang 25-35% doanh thu t? UX t?t hon
-- Ti?p c?n th? tru?ng to�n c?u qua CDN
-
-#### Gi� tr? d�i h?n
-- M? r?ng d?n 100K+ ngu?i d�ng
-- Nh�m t�ch luy kinh nghi?m AWS
-- Microservices t�i s? d?ng
-- Ph�t tri?n t�nh nang nhanh
+**Dài hạn:** Mở rộng đến 100K+ người dùng, nhóm tích lũy kinh nghiệm AWS, microservices tái sử dụng, phát triển tính năng nhanh
 
 ---
 
-### Bu?c ti?p theo
-1. Ph� duy?t d? xu?t
-2. Thi?t l?p t�i kho?n AWS
-3. T?p h?p nh�m
-4. B?t d?u Giai do?n 1
-5. ��nh gi� ti?n d? h�ng tu?n
+### 9. Tài liệu Dự án
 
+ **[Tải Kế hoạch Dự án Chi tiết (DOCX)](/docs/AWS_Project_Plan_Devteria.docx)**
+
+Tài liệu toàn diện bao gồm:
+- Đặc tả kỹ thuật chi tiết
+- Sơ đồ kiến trúc với giải thích
+- Hướng dẫn triển khai từng bước
+- Mẫu code và ví dụ cấu hình
+- Chiến lược testing và deployment
+- Quy trình giám sát và bảo trì
+
+---
+
+### Bước tiếp theo
+1. Phê duyệt đề xuất
+2. Thiết lập tài khoản AWS
+3. Tập hợp nhóm
+4. Bắt đầu Giai đoạn 1
+5. Đánh giá tiến độ hàng tuần

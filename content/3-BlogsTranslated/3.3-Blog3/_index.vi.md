@@ -1,106 +1,101 @@
-﻿---
-title: "Blog 3 - Node.js 22 runtime in AWS Lambda"
+---
+title: "Blog 3 - Node.js 22 runtime trong AWS Lambda"
 date: 2024-11-21
 weight: 3
 chapter: false
 pre: " <b> 3.3. </b> "
 ---
 
-Node.js 22 runtime hiện đã có sẵn trong AWS Lambda
+# Node.js 22 runtime hiện có sẵn trong AWS Lambda
 
-Tác giả: Julian Wood vào ngày 21 THÁNG 11 2024 
-Danh mục:  Amazon CloudFront, Announcements, AWS Cloud Development Kit, AWS Lambda, AWS SDK for JavaScript in Node.js, AWS Serverless Application Model, AWS Systems Manager, Lambda@Edge, Serverless
-
+**Tác giả**: Julian Wood và Andrea Amorosi  
+**Ngày đăng**: 21/11/2024  
+**Danh mục**: Amazon CloudFront, Announcements, AWS CDK, AWS Lambda, AWS SDK for JavaScript, AWS SAM, Lambda@Edge, Serverless
 
-Bài viết này được viết bởi Julian Wood, Principal Developer Advocate, và Andrea Amorosi, Senior SA Engineer.
-Giới thiệu
-Giờ đây bạn có thể phát triển các hàm AWS Lambda sử dụng Node.js 22 runtime, phiên bản đang ở trạng thái LTS tích cực và sẵn sàng cho việc sử dụng trong production. Node.js 22 bao gồm một số bổ sung cho ngôn ngữ, bao gồm require() các ES modules, cũng như các thay đổi đối với việc triển khai runtime và thư viện chuẩn. Với bản phát hành này, các nhà phát triển Node.js có thể tận dụng các tính năng và cải tiến mới này khi tạo các ứng dụng serverless trên Lambda.
+---
 
-Bạn có thể phát triển các hàm Lambda Node.js 22 bằng cách sử dụng AWS Management Console, AWS Command Line Interface (AWS CLI), AWS SDK for JavaScript, AWS Serverless Application Model (AWS SAM), AWS Cloud Development Kit (AWS CDK), và các công cụ infrastructure as code khác.
+## Giới thiệu
 
-Để sử dụng phiên bản mới này, hãy chỉ định giá trị tham số runtime là nodejs22.x khi tạo hoặc cập nhật các hàm hoặc bằng cách sử dụng container base image thích hợp.
+Bạn giờ đây có thể phát triển các hàm AWS Lambda sử dụng Node.js 22 runtime, một phiên bản đang trong trạng thái LTS (Long Term Support) sẵn sàng cho sử dụng production. Node.js 22 bao gồm một số bổ sung ngôn ngữ, bao gồm `require()` cho ES modules, cũng như các thay đổi đối với triển khai runtime và thư viện chuẩn.
 
-Bạn có thể sử dụng Node.js 22 với Powertools for AWS Lambda (TypeScript), một bộ công cụ phát triển để triển khai các best practices serverless và tăng tốc độ phát triển. Powertools for AWS Lambda bao gồm các thư viện để hỗ trợ các tác vụ phổ biến như observability, tích hợp AWS Systems Manager Parameter Store, idempotency, batch processing, và nhiều hơn nữa. Bạn cũng có thể sử dụng Node.js 22 với Lambda@Edge để tùy chỉnh nội dung độ trễ thấp được phân phối thông qua Amazon CloudFront.
+Bạn có thể phát triển hàm Lambda với Node.js 22 sử dụng AWS Management Console, AWS CLI, AWS SDK for JavaScript, AWS SAM, AWS CDK, và các công cụ infrastructure as code khác.
 
-Bài viết blog này làm nổi bật các thay đổi quan trọng đối với Node.js runtime, các cập nhật ngôn ngữ Node.js đáng chú ý, và cách bạn có thể sử dụng Node.js 22 runtime mới trong các ứng dụng serverless của mình.
-
-Cập nhật ngôn ngữ Node.js 22
+Để sử dụng phiên bản mới này, chỉ định giá trị tham số runtime là `nodejs22.x` khi tạo hoặc cập nhật hàm, hoặc bằng cách sử dụng container base image phù hợp.
+
+Bạn cũng có thể sử dụng Node.js 22 với **Powertools for AWS Lambda (TypeScript)**, một bộ công cụ phát triển để triển khai các best practices serverless. Bạn cũng có thể sử dụng Node.js 22 với **Lambda@Edge** để tùy chỉnh nội dung độ trễ thấp được phân phối qua Amazon CloudFront.
+
+Bài viết này làm nổi bật các thay đổi quan trọng đối với Node.js runtime, các cập nhật ngôn ngữ Node.js 22 đáng chú ý, và cách bạn có thể sử dụng Node.js 22 runtime mới trong các ứng dụng serverless của mình.
+
+---
+
+## Cập nhật Ngôn ngữ Node.js 22
+
 Node.js 22 giới thiệu một số cập nhật và tính năng ngôn ngữ nhằm nâng cao năng suất của nhà phát triển và cải thiện hiệu suất ứng dụng.
-Bản phát hành này thêm hỗ trợ cho việc tải ECMAScript modules (ESM) bằng cách sử dụng require(). Bạn có thể kích hoạt tính năng này bằng cách sử dụng cờ --experimental-require-module thông qua việc cấu hình biến môi trường NODE_OPTIONS. Hỗ trợ require() cho các đồ thị ESM đồng bộ tạo cầu nối giữa CommonJS và ESM, cung cấp tính linh hoạt hơn trong việc tải module. Điều quan trọng cần lưu ý là tính năng này hiện đang ở giai đoạn thử nghiệm và có thể thay đổi trong các bản phát hành tương lai.
-Hỗ trợ WebSocket trước đây có sẵn đằng sau cờ --experimental-websocket giờ đây được kích hoạt mặc định trong Node.js 22. Điều này mang lại triển khai WebSocket client tương thích với trình duyệt cho Node.js mà không cần phụ thuộc bên ngoài. Hỗ trợ native đơn giản hóa việc xây dựng các ứng dụng thời gian thực và nâng cao trải nghiệm WebSocket tổng thể trong môi trường Node.js.
-Runtime mới cũng bao gồm các cải tiến hiệu suất đối với việc tạo AbortSignal. Điều này làm cho các hoạt động mạng nhanh hơn và hiệu quả hơn cho Fetch API và test runner. Fetch API cũng giờ đây được coi là ổn định trong Node.js 22.
-Đối với người dùng TypeScript, Node.js 22 giới thiệu hỗ trợ thử nghiệm để chuyển đổi cú pháp chỉ dành cho TypeScript thành mã JavaScript. Bằng cách sử dụng cờ --experimental-transform-types, bạn có thể kích hoạt tính năng này để hỗ trợ cú pháp TypeScript như Enum và namespace trực tiếp. Mặc dù bạn có thể kích hoạt tính năng trong Lambda, entrypoint hàm của bạn (tức là index.mjs hoặc app.cjs) hiện không thể được viết bằng TypeScript vì runtime mong đợi một tệp có phần mở rộng JavaScript. Bạn có thể sử dụng TypeScript cho bất kỳ module nào khác được import trong codebase của mình.
-Để có cái nhìn tổng quan chi tiết về các tính năng ngôn ngữ Node.js 22, hãy xem bài viết blog phát hành Node.js 22 và changelog Node.js 22.
-
-Các tính năng thử nghiệm không có sẵn
-Node.js 22 bao gồm một tính năng thử nghiệm để tự động phát hiện cú pháp module (CommonJS hoặc ES Modules). Tính năng này phải được kích hoạt khi Node.js runtime được biên dịch. Vì Node.js 22 runtime do Lambda cung cấp được dành cho khối lượng công việc production, tính năng thử nghiệm này không được kích hoạt trong bản build Lambda và không thể được kích hoạt thông qua cờ execution-time. Để sử dụng tính năng này trong Lambda, bạn cần triển khai Node.js runtime của riêng mình bằng cách sử dụng custom runtime hoặc container image với tính năng phát hiện cú pháp module thử nghiệm được kích hoạt.
-
-Cân nhắc về hiệu suất
 
-Khi ra mắt, các Lambda runtime mới nhận được ít sử dụng hơn so với các runtime đã được thiết lập hiện có. Điều này có thể dẫn đến thời gian cold start dài hơn do giảm cache residency trong các hệ thống con Lambda nội bộ. Thời gian cold start thường cải thiện trong những tuần sau khi ra mắt khi việc sử dụng tăng lên. Do đó, AWS khuyến nghị không rút ra kết luận từ so sánh hiệu suất side-by-side với các Lambda runtime khác cho đến khi hiệu suất đã ổn định. Vì hiệu suất phụ thuộc nhiều vào khối lượng công việc, khách hàng có khối lượng công việc nhạy cảm với hiệu suất nên tiến hành thử nghiệm của riêng họ, thay vì dựa vào các benchmark thử nghiệm chung.
+### require() cho ECMAScript Modules
 
-Các builder nên tiếp tục đo lường và kiểm tra hiệu suất hàm và tối ưu hóa mã hàm và cấu hình cho bất kỳ tác động nào. Để tìm hiểu thêm về cách tối ưu hóa hiệu suất Node.js trong Lambda, hãy xem Performance optimization trong Lambda Operator Guide, và bài viết blog Optimizing Node.js dependencies in AWS Lambda.
-
-Migration từ các Node.js runtime trước đó
+Phiên bản này thêm hỗ trợ cho việc tải ECMAScript modules (ESM) sử dụng `require()`. Bạn có thể kích hoạt tính năng này sử dụng flag `--experimental-require-module` thông qua cấu hình biến môi trường NODE_OPTIONS.
 
-AWS SDK for JavaScript
-Cho đến Node.js 16, các Node.js runtime của Lambda bao gồm AWS SDK for JavaScript phiên bản 2. Điều này đã được thay thế bởi AWS SDK for JavaScript phiên bản 3, được phát hành vào tháng 12 năm 2022. Bắt đầu từ Node.js 18, và tiếp tục với Node.js 22, các Lambda Node.js runtime bao gồm phiên bản 3. Khi nâng cấp từ Node.js 16 hoặc các runtime trước đó và sử dụng phiên bản 2 đi kèm, bạn phải nâng cấp mã của mình để sử dụng v3 SDK.
-Để có hiệu suất tối ưu, và để có toàn quyền kiểm soát các phụ thuộc mã của bạn, chúng tôi khuyến nghị bundling và minifying AWS SDK trong deployment package của bạn, thay vì sử dụng SDK có trong runtime. Để biết thêm thông tin, hãy xem Optimizing Node.js dependencies in AWS Lambda.
-Amazon Linux 2023
-Node.js 22 runtime dựa trên provided.al2023 runtime, được dựa trên Amazon Linux 2023 minimal container image. Amazon Linux 2023 minimal image sử dụng microdnf làm package manager, được symlink là dnf. Điều này thay thế yum package manager được sử dụng trong Node.js 18 và các image dựa trên AL2 trước đó. Nếu bạn triển khai Lambda function của mình dưới dạng container image, bạn phải cập nhật Dockerfile của mình để sử dụng dnf thay vì yum khi nâng cấp lên Node.js 22 base image từ Node.js 18 hoặc trước đó.
-Ngoài ra AL2 bao gồm curl và gnupg2 dưới dạng phiên bản tối thiểu curl-minimal và gnupg2-minimal.
-Tìm hiểu thêm về provided.al2023 runtime trong bài viết blog Introducing the Amazon Linux 2023 runtime for AWS Lambda và bài viết blog ra mắt Amazon Linux 2023.
-
-Sử dụng Node.js 22 runtime trong AWS Lambda
+Hỗ trợ cho `require()` cho đồ thị ESM đồng bộ tạo ra một cây cầu giữa CommonJS và ESM, cung cấp sự linh hoạt hơn trong việc tải module. Quan trọng là lưu ý tính năng này hiện đang là thử nghiệm và có thể thay đổi trong các phiên bản tương lai.
 
-AWS Management Console
-Để sử dụng Node.js 22 runtime để phát triển các Lambda function của bạn, hãy chỉ định giá trị tham số runtime Node.js 22.x khi tạo hoặc cập nhật một hàm. Phiên bản Node.js 22 runtime hiện có sẵn trong dropdown Runtime trên trang Create function trong AWS Lambda console.
-/
-Creating Node.js function in AWS Management Console
+### Hỗ trợ WebSocket
 
-Để cập nhật Lambda function hiện có lên Node.js 22, điều hướng đến hàm trong Lambda console, sau đó chọn Node.js 22.x trong panel Runtime settings. Phiên bản mới của Node.js có sẵn trong dropdown Runtime:
-/
-Changing a function to Node.js 22
+Hỗ trợ WebSocket, trước đây có sẵn đằng sau flag `--experimental-websocket`, giờ được kích hoạt mặc định trong Node.js 22. Điều này mang triển khai WebSocket client tương thích trình duyệt đến Node.js mà không cần dependencies bên ngoài. Hỗ trợ native đơn giản hóa việc xây dựng các ứng dụng thời gian thực.
 
-AWS Lambda container image
+### Cải thiện Hiệu suất
 
-Thay đổi phiên bản Node.js base image bằng cách sửa đổi câu lệnh FROM trong Dockerfile của bạn.
+Runtime mới cũng bao gồm các cải thiện hiệu suất cho việc tạo AbortSignal. Điều này làm cho các hoạt động mạng nhanh hơn và hiệu quả hơn cho Fetch API và test runner. Fetch API cũng giờ được coi là ổn định trong Node.js 22.
 
-/
+### Hỗ trợ TypeScript
 
-AWS Serverless Application Model (AWS SAM)
+Đối với người dùng TypeScript, Node.js 22 giới thiệu hỗ trợ thử nghiệm cho việc chuyển đổi cú pháp chỉ dành cho TypeScript thành mã JavaScript. Sử dụng flag `--experimental-transform-types`, bạn có thể kích hoạt tính năng này để hỗ trợ cú pháp TypeScript như Enum và namespace trực tiếp.
 
-Trong AWS SAM, đặt thuộc tính Runtime thành nodejs22.x để sử dụng phiên bản này.
-
-/
-
-Khi bạn thêm mã hàm trực tiếp trong template AWS SAM hoặc AWS CloudFormation dưới dạng inline function, nó được coi là CommonJS.
-
-AWS SAM hỗ trợ tạo template này với Node.js 22 cho các ứng dụng serverless mới bằng lệnh sam init. Tham khảo tài liệu AWS SAM.
-
-AWS Cloud Development Kit (AWS CDK)
-
-Trong AWS CDK, đặt thuộc tính runtime thành Runtime.NODEJS_22_X để sử dụng phiên bản này.
-
-/
-
-Kết luận
-
-Lambda hiện hỗ trợ Node.js 22 như một managed language runtime. Bản phát hành này sử dụng Amazon Linux 2023 OS cũng như các cải tiến khác được chi tiết trong bài viết blog này.
-Bạn có thể xây dựng và triển khai các hàm sử dụng Node.js 22 bằng cách sử dụng AWS Management Console, AWS CLI, AWS SDK, AWS SAM, AWS CDK, hoặc công cụ infrastructure as code mà bạn lựa chọn. Bạn cũng có thể sử dụng Node.js 22 container base image nếu bạn thích xây dựng và triển khai các hàm của mình bằng container image.
-Node.js 22 runtime giúp các nhà phát triển xây dựng các ứng dụng serverless hiệu quả, mạnh mẽ và có thể mở rộng hơn. Đọc về Node.js programming model trong tài liệu Lambda để tìm hiểu thêm về việc viết các hàm trong Node.js 22. Hãy thử Node.js runtime trong Lambda ngay hôm nay.
-Để có thêm tài nguyên học tập serverless, hãy truy cập Serverless Land.
-
----
-
-## Về tác giả
-
-**Julian Wood** - Principal Developer Advocate cho Serverless tại AWS, giúp các nhà phát triển xây dựng và tối ưu hóa các ứng dụng serverless. Ông đam mê công nghệ serverless và chia sẻ các phương pháp hay nhất thông qua blog, workshop và tương tác cộng đồng.
-
-**Andrea Amorosi** - Senior Solutions Architect tại AWS, chuyên về kiến trúc serverless và công cụ phát triển. Ông giúp khách hàng thiết kế và xây dựng các ứng dụng có thể mở rộng, hướng sự kiện bằng AWS Lambda và các công nghệ serverless khác.
+Mặc dù bạn có thể kích hoạt tính năng này trong Lambda, entrypoint hàm của bạn (tức là, `index.mjs` hoặc `app.cjs`) hiện tại không thể được viết bằng TypeScript vì runtime mong đợi một tệp với phần mở rộng JavaScript. Bạn có thể sử dụng TypeScript cho bất kỳ module nào khác được import trong codebase của bạn.
 
 ---
 
-**Tags**: serverless, Node.js, AWS Lambda, runtime, Amazon Linux 2023
+## Tính năng Thử nghiệm Không Có sẵn
 
+Node.js 22 bao gồm một tính năng thử nghiệm để tự động phát hiện cú pháp module (CommonJS hoặc ES Modules). Tính năng này phải được kích hoạt khi Node.js runtime được biên dịch.
 
+Vì Node.js 22 runtime được cung cấp bởi Lambda được dành cho các workload production, tính năng thử nghiệm này không được kích hoạt trong bản build Lambda và không thể được kích hoạt thông qua các flag thời gian thực thi.
+
+Để sử dụng tính năng này trong Lambda, bạn cần triển khai Node.js runtime của riêng bạn sử dụng custom runtime hoặc container image với tính năng phát hiện cú pháp module thử nghiệm được kích hoạt.
+
+---
+
+## Cân nhắc Hiệu suất
+
+Khi ra mắt, các runtime Lambda mới nhận được ít sử dụng hơn so với các runtime đã thiết lập hiện có. Điều này có thể dẫn đến thời gian cold start lâu hơn do giảm residency cache trong các hệ thống con Lambda nội bộ.
+
+Thời gian cold start thường cải thiện trong các tuần sau khi ra mắt khi mức sử dụng tăng lên. Do đó, **AWS khuyến nghị không rút ra kết luận** từ các so sánh hiệu suất side-by-side với các runtime Lambda khác cho đến khi hiệu suất đã ổn định.
+
+Vì hiệu suất phụ thuộc nhiều vào workload, khách hàng có các workload nhạy cảm với hiệu suất nên tiến hành testing riêng của họ thay vì dựa vào các benchmark test chung.
+
+Các builder nên tiếp tục đo lường và test hiệu suất hàm và tối ưu hóa mã hàm và cấu hình cho bất kỳ tác động nào.
+
+---
+
+## Migration từ Node.js Runtimes Trước đó
+
+### AWS SDK for JavaScript
+
+Cho đến Node.js 16, các runtime Lambda Node.js bao gồm AWS SDK for JavaScript phiên bản 2. Điều này đã được thay thế bởi AWS SDK for JavaScript phiên bản 3, được phát hành vào tháng 12 năm 2022.
+
+Bắt đầu với Node.js 18, và tiếp tục với Node.js 22, các runtime Lambda Node.js bao gồm phiên bản 3. Khi nâng cấp từ Node.js 16 hoặc các runtime cũ hơn và sử dụng phiên bản 2 đã bao gồm, **bạn phải nâng cấp mã của mình để sử dụng v3 SDK**.
+
+Để có hiệu suất tối ưu và có toàn quyền kiểm soát các dependencies mã của bạn, chúng tôi khuyến nghị **bundling và minifying AWS SDK** trong gói triển khai của bạn thay vì sử dụng SDK được bao gồm trong runtime.
+
+### Amazon Linux 2023
+
+Node.js 22 runtime được dựa trên `provided.al2023` runtime, được xây dựng trên Amazon Linux 2023 minimal container image. Amazon Linux 2023 minimal image sử dụng **microdnf** làm package manager, được symlink là `dnf`.
+
+Điều này thay thế trình quản lý gói **yum** được sử dụng trong Node.js 18 và các image dựa trên AL2 trước đó. Nếu bạn triển khai hàm Lambda của mình dưới dạng container image, **bạn phải cập nhật Dockerfile của mình để sử dụng `dnf` thay vì `yum`** khi nâng cấp lên Node.js 22 base image từ Node.js 18 hoặc trước đó.
+
+---
+
+## Kết luận
+
+Node.js 22 runtime mang đến nhiều cải tiến về ngôn ngữ, hiệu suất và công cụ cho các nhà phát triển serverless trên AWS Lambda. Với hỗ trợ cho ES modules, WebSocket native, và TypeScript transformation, Node.js 22 cho phép bạn xây dựng các ứng dụng hiện đại và hiệu quả hơn.
+
+Hãy bắt đầu sử dụng Node.js 22 trong Lambda ngay hôm nay! 
