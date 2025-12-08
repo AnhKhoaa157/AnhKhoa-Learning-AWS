@@ -6,14 +6,19 @@ chapter: false
 ---
 
 # Báo cáo thực tập
+
+{{% notice warning %}}
+⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
+{{% /notice %}}
+
 ### Thông tin sinh viên:
-&emsp; **Họ và tên:** Nguyễn Văn A
+&emsp; **Họ và tên:** Lý Anh Khoa
 
-&emsp; **Số điện thoại:** 0989888999
+&emsp; **Số điện thoại:** 0902381647
 
-&emsp; **Email:** Anguyenvan@gmail.com
+&emsp; **Email:** khoalase182682@fpt.edu.vn
 
-&emsp; **Trường:** Đại học Sư phạm Kỹ thuật TP.HCM
+&emsp; **Trường:** Đại học FPT
 
 &emsp; **Ngành:** Công nghệ thông tin
 
